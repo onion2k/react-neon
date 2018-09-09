@@ -9,3 +9,4 @@ Neon builds on Snowfall to map the positions of elements on a webpage and overla
 * Scrolling updater / intersection observer
 * Class-to-effect registery for multiple effects
 * Inject TWGL for WebGL shader effects
+* React/Vue/framework version
