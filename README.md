@@ -13,3 +13,5 @@ Neon builds on Snowfall to map the positions of elements on a webpage and overla
 * React/Vue/framework version
 * Register of active effects
 * FX Plugins
+* NPM module
+* Tests
