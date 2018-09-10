@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/onion2k/Neon.git"
+    "url": "git+https://github.com/onion2k/react-neon.git"
   },
   "keywords": [
     "react"
@@ -16,7 +16,7 @@
   "author": "Chris Neale",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/onion2k/Neon/issues"
+    "url": "https://github.com/onion2k/react-neon/issues"
   },
-  "homepage": "https://github.com/onion2k/Neon#readme"
+  "homepage": "https://github.com/onion2k/react-neon#readme"
 }
