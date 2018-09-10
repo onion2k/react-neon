@@ -1,0 +1,22 @@
+{
+  "name": "react-neon",
+  "version": "0.0.1",
+  "description": "A canvas and WebGL overlay for React components",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/onion2k/Neon.git"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "Chris Neale",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/onion2k/Neon/issues"
+  },
+  "homepage": "https://github.com/onion2k/Neon#readme"
+}
