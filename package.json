@@ -2,8 +2,9 @@
   "name": "react-neon",
   "version": "0.0.1",
   "description": "A canvas and WebGL overlay for React components",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
+    "build": "babel src --out-dir dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,5 +19,16 @@
   "bugs": {
     "url": "https://github.com/onion2k/react-neon/issues"
   },
-  "homepage": "https://github.com/onion2k/react-neon#readme"
+  "homepage": "https://github.com/onion2k/react-neon#readme",
+  "peerDependencies": {
+    "react": "^16.5.0",
+    "react-dom": "^16.5.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-class-properties": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-react": "^7.0.0"
+  }
 }
