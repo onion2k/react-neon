@@ -15,3 +15,4 @@ Neon builds on Snowfall to map the positions of elements on a webpage and overla
 * FX Plugins
 * NPM module
 * Tests
+* Stencial (shape-outside?)
