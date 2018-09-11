@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 import Particles from "./fx/Particles.js";
+import Light from "./fx/Light.js"
 
 const withNeon = (NeonComponent, config) => {
     
@@ -23,6 +24,9 @@ const withNeon = (NeonComponent, config) => {
             super(props);
 
             switch (config.type) {
+                case "light":
+                    this.fx =  new Light();
+                    break;
                 case "particles":
                     this.fx =  new Particles();
                     break;
@@ -46,10 +50,10 @@ const withNeon = (NeonComponent, config) => {
                 pointerEvents: 'none'
             });
 
-            const ctx = this.canvasref.current.getContext('2d');
             this.canvasref.current.width = bb.width;
             this.canvasref.current.height = bb.height;
 
+            const ctx = this.canvasref.current.getContext('2d');
             this.fx.attach(ctx, bb);
             this.fx.draw();
 

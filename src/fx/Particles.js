@@ -1,15 +1,13 @@
+import Fx from "./Fx";
 
-export default class Particles {
+export default class Particles extends Fx {
 
     constructor() {
 
-        this.ctx = null;
-        this.raf = null;
-        this.bb = {};
+        super();
+
         this.particles = [];
         this.particleCount = 4;
-
-        this.draw = this.draw.bind(this);
 
     }
 
