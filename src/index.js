@@ -1,36 +1,21 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-import Particles from "./fx/Particles.js";
-import Light from "./fx/Light.js"
-
-const withNeon = (NeonComponent, config) => {
+const withNeon = (NeonComponent, fx) => {
     
     return class extends Component {
 
         ref = React.createRef();
         canvasref = React.createRef();
         mouse = [];
-        particles = [];
         bb = {};
-
-        particleCount = config.mouseMoveCount;
-        gravity = 0.5;
 
         resize = this.resize.bind(this);
 
         constructor(props) {
 
             super(props);
-
-            switch (config.type) {
-                case "light":
-                    this.fx =  new Light();
-                    break;
-                case "particles":
-                    this.fx =  new Particles();
-                    break;
-            }
+            this.fx = fx;
 
         }
 
