@@ -16,7 +16,9 @@ export default class Fx {
     }
 
     cancel() {
-
+        if (this.raf) {
+            cancelAnimationFrame(this.raf);
+        }
     }
 
     listeners(el) {
@@ -24,7 +26,8 @@ export default class Fx {
     }
 
     attach(ctx, bb) {
-
+        this.ctx = ctx;
+        this.bb = bb;
     }
 
 }

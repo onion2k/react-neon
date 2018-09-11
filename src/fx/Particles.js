@@ -37,12 +37,6 @@ export default class Particles extends Fx {
 
     }
 
-    cancel() {
-        if (this.raf) {
-            cancelAnimationFrame(this.raf);
-        }
-    }
-
     listeners(el) {
 
         el.addEventListener('mousemove', (e) => {
@@ -60,13 +54,6 @@ export default class Particles extends Fx {
                 );                    
             }
         })
-
-    }
-
-    attach(ctx, bb) {
-
-        this.ctx = ctx;
-        this.bb = bb;
 
     }
 
