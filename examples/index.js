@@ -1,7 +1,7 @@
 import React from 'react';
 import { render} from 'react-dom';
-import Particles from './Particles';
-import Light from './Light';
+import Particles from './tiles/Particles';
+import Light from './tiles/Light';
 
 import "./index.css";
 

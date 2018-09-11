@@ -1,7 +1,7 @@
 import Tile from "./Tile.js";
 
-import withNeon from "../src";
-import Light from '../src/fx/Light';
+import withNeon from "../../src/index.js";
+import Light from '../../src/fx/Light.js';
 
 const lightConfig = {
   type: "light"

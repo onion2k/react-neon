@@ -1,7 +1,7 @@
 import Tile from "./Tile.js";
 
-import withNeon from "../src";
-import Particles from "../src/fx/Particles.js";
+import withNeon from "../../src/index.js";
+import Particles from "../../src/fx/Particles.js";
 
 const particlesConfig = {
   type: "particles",
