@@ -1,7 +1,14 @@
 import React from 'react';
 import { render} from 'react-dom';
-import Square from './Square';
+import Particles from './Particles';
 
-const App = () => (<Square /> );
+import "./index.css";
+
+const App = () => (
+    <React.Fragment>
+        <Particles />
+        <Particles />
+    </React.Fragment>
+);
 
 render(<App />, document.getElementById("root"));
