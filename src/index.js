@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-const withNeon = (NeonComponent, particleCount) => {
+const withNeon = (NeonComponent, config) => {
     
     return class extends Component {
 
@@ -13,27 +13,29 @@ const withNeon = (NeonComponent, particleCount) => {
         raf = null;
         bb = {};
 
-        particleCount = particleCount;
+        particleCount = config.mouseMoveCount;
         gravity = 0.5;
 
         draw = this.draw.bind(this);
         resize = this.resize.bind(this);
+
+        constructor(props) {
+
+            super(props);
+
+            switch (config.type) {
+                case "particles":
+                    console.log(config);
+                    break;
+            }
+
+        }
 
         draw() {
 
             if (this.ctx!==null) {
 
                 this.ctx.clearRect(0,0,this.bb.width,this.bb.height);
-
-                this.ctx.strokeStyle = 'hsla(64,100%,100%,1)';
-                this.ctx.beginPath();
-                this.ctx.moveTo(0, 1114.796875 / 2);
-                this.ctx.lineTo(20, 1114.796875 / 2);
-
-                this.ctx.moveTo(this.bb.width - 20, 1114.796875 / 2);
-                this.ctx.lineTo(this.bb.width, 1114.796875 / 2);
-
-                this.ctx.stroke();
 
                 if (this.particles.length) {
                     this.particles.forEach((m, i)=>{
@@ -71,6 +73,7 @@ const withNeon = (NeonComponent, particleCount) => {
                 zIndex: 999,
                 pointerEvents: 'none'
             });
+            
             this.bb = bb;
 
             this.ctx = this.canvasref.current.getContext('2d');
