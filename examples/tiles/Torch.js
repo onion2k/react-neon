@@ -5,9 +5,7 @@ import withNeon, { Torch } from "../../src/index.js";
 class TorchTile extends React.Component {
   render(){
     return (
-      <Tile bg="white">
-        The secret to life is.
-      </Tile>
+      <Tile bgIm="https://source.unsplash.com/random?t" />
     )
   }
 };
