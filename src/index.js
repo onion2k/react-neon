@@ -14,16 +14,12 @@ const withNeon = (NeonComponent, fx) => {
         canvasref = React.createRef();
         mouse = [];
         bb = {};
-
         resize = this.resize.bind(this);
 
         constructor(props) {
-
             super(props);
             this.fx = fx;
-
-            console.log(this.canvasref);
-
+            this.ro = new window.ResizeObserver(this.resize);
         }
 
         resize(c) {
@@ -36,8 +32,8 @@ const withNeon = (NeonComponent, fx) => {
                 position: 'absolute',
                 width: bb.width+'px',
                 height: bb.height+'px',
-                top: '0',
-                left: '0',
+                top: bb.top+'px',
+                left: bb.left+'px',
                 zIndex: 999,
                 pointerEvents: 'none'
             });
@@ -52,18 +48,16 @@ const withNeon = (NeonComponent, fx) => {
         }
 
         componentDidMount(){
-
-            const ro = new window.ResizeObserver(this.resize);
-            ro.observe(ReactDOM.findDOMNode(this.ref.current));
+            this.ro.observe(ReactDOM.findDOMNode(this.ref.current));
             this.fx.listeners(ReactDOM.findDOMNode(this.ref.current));
-
         }
+
         render() {
             return (
-                <div style={{ position: 'relative' }}>
+                <React.Fragment>
                     <NeonComponent ref={this.ref} />
                     <canvas ref={this.canvasref} />
-                </div>
+                </React.Fragment>
             )
         }
     }
