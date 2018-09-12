@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
+import Light from "./fx/Light";
+import Particles from "./fx/Particles";
+
 const withNeon = (NeonComponent, fx) => {
     
     return class extends Component {
@@ -63,4 +66,4 @@ const withNeon = (NeonComponent, fx) => {
 
 }
 
-export default withNeon;
+export { withNeon as default, Light, Particles };
