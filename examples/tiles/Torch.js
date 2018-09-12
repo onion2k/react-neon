@@ -10,10 +10,4 @@ class TorchTile extends React.Component {
   }
 };
 
-const torchConfig = {
-  type: "torch"
-};
-
-const fx = new Torch(torchConfig);
-
-export default withNeon(TorchTile, fx);
+export default withNeon(TorchTile, new Torch());
