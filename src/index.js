@@ -29,6 +29,7 @@ const withNeon = (NeonComponent, fx) => {
             const bb = c[0].target.getBoundingClientRect();
 
             Object.assign(this.canvasref.current.style, {
+                display: 'block',
                 position: 'absolute',
                 width: bb.width+'px',
                 height: bb.height+'px',
@@ -48,15 +49,15 @@ const withNeon = (NeonComponent, fx) => {
         }
 
         componentDidMount(){
-            this.ro.observe(ReactDOM.findDOMNode(this.ref.current));
             this.fx.listeners(ReactDOM.findDOMNode(this.ref.current));
+            this.ro.observe(ReactDOM.findDOMNode(this.ref.current));
         }
 
         render() {
             return (
                 <React.Fragment>
                     <NeonComponent ref={this.ref} />
-                    <canvas ref={this.canvasref} />
+                    <canvas ref={this.canvasref} style={{ display: 'none' }} />
                 </React.Fragment>
             )
         }

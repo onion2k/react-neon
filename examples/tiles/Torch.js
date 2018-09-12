@@ -2,12 +2,12 @@ import React from "react";
 import Tile from "./Tile.js";
 import withNeon, { Torch } from "../../src/index.js";
 
-class tTile extends React.Component {
+class TorchTile extends React.Component {
   render(){
     return (
-      <div>
+      <Tile bg="white">
         The secret to life is.
-      </div>
+      </Tile>
     )
   }
 };
@@ -18,4 +18,4 @@ const torchConfig = {
 
 const fx = new Torch(torchConfig);
 
-export default withNeon(tTile, fx);
+export default withNeon(TorchTile, fx);
