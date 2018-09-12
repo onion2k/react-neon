@@ -5,7 +5,7 @@ import withNeon, { Heatmap } from "../../src/index.js";
 class HeatTile extends React.Component {
   render(){
     return (
-      <Tile bg="white" />
+      <Tile bgIm="https://source.unsplash.com/random?heat" />
     )
   }
 };

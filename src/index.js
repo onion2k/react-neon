@@ -5,6 +5,12 @@ import Light from "./fx/Light";
 import Particles from "./fx/Particles";
 import Heatmap from "./fx/Heatmap";
 import Torch from "./fx/Torch";
+import Bokeh from "./fx/Bokeh";
+import Crystal from "./fx/Crystal";
+import Neon from "./fx/Neon";
+import Shadows from "./fx/Shadows";
+import Snow from "./fx/Snow";
+import Sparks from "./fx/Sparks";
 
 const withNeon = (NeonComponent, fx) => {
     
@@ -65,4 +71,4 @@ const withNeon = (NeonComponent, fx) => {
 
 }
 
-export { withNeon as default, Light, Particles, Heatmap, Torch };
+export { withNeon as default, Light, Particles, Heatmap, Torch, Bokeh, Crystal, Neon, Shadows, Snow, Sparks };
