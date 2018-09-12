@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 
 import Light from "./fx/Light";
 import Particles from "./fx/Particles";
+import Heatmap from "./fx/Heatmap";
+import Torch from "./fx/Torch";
 
 const withNeon = (NeonComponent, fx) => {
     
@@ -20,6 +22,8 @@ const withNeon = (NeonComponent, fx) => {
             super(props);
             this.fx = fx;
 
+            console.log(this.canvasref);
+
         }
 
         resize(c) {
@@ -32,8 +36,8 @@ const withNeon = (NeonComponent, fx) => {
                 position: 'absolute',
                 width: bb.width+'px',
                 height: bb.height+'px',
-                top: bb.top+'px',
-                left: bb.left+'px',
+                top: '0',
+                left: '0',
                 zIndex: 999,
                 pointerEvents: 'none'
             });
@@ -56,14 +60,14 @@ const withNeon = (NeonComponent, fx) => {
         }
         render() {
             return (
-                <React.Fragment>
+                <div style={{ position: 'relative' }}>
                     <NeonComponent ref={this.ref} />
                     <canvas ref={this.canvasref} />
-                </React.Fragment>
+                </div>
             )
         }
     }
 
 }
 
-export { withNeon as default, Light, Particles };
+export { withNeon as default, Light, Particles, Heatmap, Torch };
