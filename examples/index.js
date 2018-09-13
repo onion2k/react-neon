@@ -23,8 +23,7 @@ const App = () => (
         <Bokeh />
         <Shadows />
         <Crystal />
-        <Neon />
-        <Snow  />
+        <Snow />
         <Sparks />
     </React.Fragment>
 );
