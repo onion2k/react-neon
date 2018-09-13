@@ -1,6 +1,6 @@
 import React from "react";
 import Tile from "./Tile.js";
-import withNeon, { Particles } from "../../src/index.js";
+import withNeon, { fx } from "../../src/index.js";
 
 class ParticlesTile extends React.Component {
   render(){
@@ -17,6 +17,6 @@ const particlesConfig = {
   color: ["0", "100%", "100%"]
 };
 
-const fx = new Particles(particlesConfig);
+const effect = new fx.Particles(particlesConfig);
 
-export default withNeon(ParticlesTile, fx);
+export default withNeon(ParticlesTile, effect);

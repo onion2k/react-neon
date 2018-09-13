@@ -1,6 +1,6 @@
 import React from "react";
 import Tile from "./Tile.js";
-import withNeon, { Snow } from "../../src/index.js";
+import withNeon, { fx } from "../../src/index.js";
 
 class SnowTile extends React.Component {
   render(){
@@ -10,6 +10,6 @@ class SnowTile extends React.Component {
   }
 };
 
-const fx = new Snow();
+const effect = new fx.Snow();
 
-export default withNeon(SnowTile, fx);
+export default withNeon(SnowTile, effect);

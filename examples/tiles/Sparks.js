@@ -1,6 +1,6 @@
 import React from "react";
 import Tile from "./Tile.js";
-import withNeon, { Sparks } from "../../src/index.js";
+import withNeon, { fx } from "../../src/index.js";
 
 class SparksTile extends React.Component {
   render(){
@@ -10,6 +10,6 @@ class SparksTile extends React.Component {
   }
 };
 
-const fx = new Sparks();
+const effect = new fx.Sparks();
 
-export default withNeon(SparksTile, fx);
+export default withNeon(SparksTile, effect);

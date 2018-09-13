@@ -1,6 +1,6 @@
 import React from "react";
 import Tile from "./Tile.js";
-import withNeon, { Torch } from "../../src/index.js";
+import withNeon, { fx } from "../../src/index.js";
 
 class TorchTile extends React.Component {
   render(){
@@ -10,4 +10,6 @@ class TorchTile extends React.Component {
   }
 };
 
-export default withNeon(TorchTile, new Torch());
+const effect = new fx.Torch();
+
+export default withNeon(TorchTile, effect);

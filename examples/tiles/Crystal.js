@@ -1,6 +1,6 @@
 import React from "react";
 import Tile from "./Tile.js";
-import withNeon, { Crystal } from "../../src/index.js";
+import withNeon, { fx } from "../../src/index.js";
 
 class CrystalTile extends React.Component {
   render(){
@@ -10,6 +10,6 @@ class CrystalTile extends React.Component {
   }
 };
 
-const fx = new Crystal();
+const effect = new fx.Crystal();
 
-export default withNeon(CrystalTile, fx);
+export default withNeon(CrystalTile, effect);

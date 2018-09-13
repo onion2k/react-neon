@@ -1,6 +1,6 @@
 import React from "react";
 import Tile from "./Tile.js";
-import withNeon, { Heatmap } from "../../src/index.js";
+import withNeon, { fx } from "../../src/index.js";
 
 class HeatTile extends React.Component {
   render(){
@@ -14,6 +14,6 @@ const heatmapConfig = {
   type: "heatmap"
 };
 
-const fx = new Heatmap(heatmapConfig);
+const effect = new fx.Heatmap(heatmapConfig);
 
-export default withNeon(HeatTile, fx);
+export default withNeon(HeatTile, effect);

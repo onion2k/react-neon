@@ -1,6 +1,6 @@
 import React from "react";
 import Tile from "./Tile.js";
-import withNeon, { Light } from "../../src/index.js";
+import withNeon, { fx } from "../../src/index.js";
 
 class LightTile extends React.Component {
   render(){
@@ -14,6 +14,6 @@ const lightConfig = {
   type: "light"
 };
 
-const fx = new Light(lightConfig);
+const effect = new fx.Light(lightConfig);
 
-export default withNeon(LightTile, fx);
+export default withNeon(LightTile, effect);
