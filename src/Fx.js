@@ -25,7 +25,7 @@ export default class Fx {
 
     }
 
-    attach(ctx, bb) {
+    attach(component, ctx, bb) {
         this.ctx = ctx;
         this.bb = bb;
     }

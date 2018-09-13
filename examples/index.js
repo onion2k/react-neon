@@ -21,9 +21,9 @@ const App = () => (
         <Heatmap />
         <Torch />
         <Bokeh />
+        <Shadows />
         <Crystal />
         <Neon />
-        <Shadows />
         <Snow  />
         <Sparks />
     </React.Fragment>

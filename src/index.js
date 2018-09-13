@@ -40,7 +40,9 @@ const withNeon = (NeonComponent, effect) => {
             this.canvasref.current.height = bb.height;
 
             const ctx = this.canvasref.current.getContext('2d');
-            this.fx.attach(ctx, bb);
+
+            this.fx.attach(ReactDOM.findDOMNode(this.ref.current), ctx, bb);
+            
             this.fx.draw();
 
         }

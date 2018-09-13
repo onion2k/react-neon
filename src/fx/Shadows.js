@@ -1,3 +1,5 @@
+import React from "react";
+import ReactDOM from 'react-dom';
 import Fx from "../Fx";
 
 export default class Light extends Fx {
@@ -12,6 +14,17 @@ export default class Light extends Fx {
 
         }
         this.raf = requestAnimationFrame(this.draw);
+    }
+
+    attach(component, ctx, bb){
+
+        Array.from(component.children).map((c)=>{
+            const bb = c.getBoundingClientRect();
+            console.log(bb);
+        });
+
+        this.ctx = ctx;
+        this.bb = bb;
     }
 
     listeners(el) {
