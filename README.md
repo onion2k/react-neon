@@ -1,6 +1,6 @@
-# neon
+# react-neon
 
-Neon builds on Snowfall to map the positions of elements on a webpage and overlays an html/canvas/webGL layer for post-processing effect.
+React Neon is a library to put a canvas on top of a component in order to draw a graphic effect. It's a bit like a post-processing graphical shader. A set of effects is included, with a base class to define new effects too. 
 
 # TODO
 
@@ -12,7 +12,7 @@ Neon builds on Snowfall to map the positions of elements on a webpage and overla
 * Perf timer
 * React/Vue/framework version
 * Register of active effects
-* FX Plugins
-* NPM module
+* FX Plugins (done)
+* NPM module (done)
 * Tests
-* Stencial (shape-outside?)
+* Stencil (shape-outside?)
