@@ -31,6 +31,11 @@ You can build react-neon and its effects using `npm run build` if you'd rather n
 
 Todo
 
+# Planned new effects
+
+* Fuzz
+* Cyberpunk UI
+
 # TODO
 
 * Element mapper
