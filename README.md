@@ -10,6 +10,27 @@ withNeon is a React HoC, so you can use it when you export your component class 
 
 ```export class withNeon(myComponent, new fx.Particles());```
 
+# Avialable effects
+
+* Neon
+* Bokeh
+* Particles
+* Heatmap
+* Torch
+* Light (unfinished)
+* Shadows
+* Sparks
+* Crystal
+* Snow
+
+# Building from source
+
+You can build react-neon and its effects using `npm run build` if you'd rather not install from NPM.
+
+# Creating a new effect
+
+Todo
+
 # TODO
 
 * Element mapper
