@@ -29,6 +29,19 @@ export default class Fx {
         this.ctx = ctx;
         this.bb = bb;
     }
+    
+    mouse() {
+     // attach mouse listener   
+    }
+
+    mouseHistory() {
+     // attach position history listener   
+    }
+
+    scrollHeight() {
+     // attach scroll height listener   
+    }
+
 
 }
 
