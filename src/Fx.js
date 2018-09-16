@@ -12,7 +12,7 @@ export default class Fx {
     }
 
     draw() {
-
+        // override this with a draw function
     }
 
     cancel() {
@@ -22,7 +22,7 @@ export default class Fx {
     }
 
     listeners(el) {
-
+        // attach custom listeners
     }
 
     attach(component, ctx, bb) {
@@ -30,18 +30,17 @@ export default class Fx {
         this.bb = bb;
     }
     
-    mouse() {
+    listenMouse() {
      // attach mouse listener   
     }
 
-    mouseHistory() {
+    listenMouseHistory() {
      // attach position history listener   
     }
 
-    scrollHeight() {
-     // attach scroll height listener   
+    listenScrollPosition() {
+     // attach scroll position listener   
     }
-
 
 }
 
