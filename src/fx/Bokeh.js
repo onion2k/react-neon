@@ -33,7 +33,7 @@ export default class Bokeh extends Fx {
             this.ctx.clearRect(0, 0, this.bb.width, this.bb.height);
             this.points.forEach((p)=>{
                 this.ctx.beginPath();
-                this.ctx.fillStyle = 'rgba(255,0,0,'+(0.2 * p[2])+')';
+                this.ctx.fillStyle = 'hsla(64,'+(30 * p[2])+'%,50%,'+(0.2 * p[2])+')';
                 this.drawShape(this.ctx, (this.bb.width * p[0]) + ((this.bb.width / 2) - (this.mouse[0] / p[2])), (this.bb.height * p[1]) + ((this.mouse[1] / p[2])), 7, 50 * (4 - p[2]), 50 * (4 - p[2]), 0);
                 this.ctx.fill();
             });

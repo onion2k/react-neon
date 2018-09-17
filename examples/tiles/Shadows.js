@@ -1,11 +1,11 @@
 import React from "react";
-import Tile from "./Tile.js";
+import Tile from "../Tile.js";
 import withNeon, { fx } from "../../src/index.js";
 
 class ShadowsTile extends React.Component {
   render(){
     return (
-      <Tile bgIm="https://source.unsplash.com/random?shadow">
+      <Tile bgIm="https://source.unsplash.com/random?shadow" className="fourtiles">
         <div style={{ backgroundColor: "grey" }}></div>
         <div style={{ backgroundColor: "grey" }}></div>
         <div style={{ backgroundColor: "grey" }}></div>

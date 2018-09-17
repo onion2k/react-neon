@@ -1,5 +1,5 @@
 import React from "react";
-import Tile from "./Tile.js";
+import Tile from "../Tile.js";
 import withNeon, { fx } from "../../src/index.js";
 
 class LightTile extends React.Component {
