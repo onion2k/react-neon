@@ -2,111 +2,105 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import _fx_Bokeh from "./fx/Bokeh.js";
+import _fx_Crystal from "./fx/Crystal.js";
+import _fx_Heatmap from "./fx/Heatmap.js";
+import _fx_Light from "./fx/Light.js";
+import _fx_Neon from "./fx/Neon.js";
+import _fx_Particles from "./fx/Particles.js";
+import _fx_Shadows from "./fx/Shadows.js";
+import _fx_Snow from "./fx/Snow.js";
+import _fx_Sparks from "./fx/Sparks.js";
+import _fx_Torch from "./fx/Torch.js";
+const fx = {
+  Bokeh: _fx_Bokeh,
+  Crystal: _fx_Crystal,
+  Heatmap: _fx_Heatmap,
+  Light: _fx_Light,
+  Neon: _fx_Neon,
+  Particles: _fx_Particles,
+  Shadows: _fx_Shadows,
+  Snow: _fx_Snow,
+  Sparks: _fx_Sparks,
+  Torch: _fx_Torch
+};
+Object.freeze(fx);
 
-const withNeon = (NeonComponent, particleCount) => {
+const withNeon = (NeonComponent, effect) => {
   return class extends Component {
-    constructor(...args) {
-      super(...args);
+    constructor(props) {
+      super(props);
 
       _defineProperty(this, "ref", React.createRef());
 
       _defineProperty(this, "canvasref", React.createRef());
 
-      _defineProperty(this, "ctx", null);
-
       _defineProperty(this, "mouse", []);
-
-      _defineProperty(this, "particles", []);
-
-      _defineProperty(this, "raf", null);
 
       _defineProperty(this, "bb", {});
 
-      _defineProperty(this, "particleCount", particleCount);
-
-      _defineProperty(this, "gravity", 0.5);
-
-      _defineProperty(this, "draw", this.draw.bind(this));
-
       _defineProperty(this, "resize", this.resize.bind(this));
-    }
 
-    draw() {
-      if (this.ctx !== null) {
-        this.ctx.clearRect(0, 0, this.bb.width, this.bb.height);
-        this.ctx.strokeStyle = 'hsla(64,100%,100%,1)';
-        this.ctx.beginPath();
-        this.ctx.moveTo(0, 1114.796875 / 2);
-        this.ctx.lineTo(20, 1114.796875 / 2);
-        this.ctx.moveTo(this.bb.width - 20, 1114.796875 / 2);
-        this.ctx.lineTo(this.bb.width, 1114.796875 / 2);
-        this.ctx.stroke();
-
-        if (this.particles.length) {
-          this.particles.forEach((m, i) => {
-            if (--m[4] < 0) {
-              this.particles.splice(i, 1);
-            }
-
-            this.ctx.fillStyle = 'hsla(0,100%,100%,' + m[4] / 100 + ')';
-            this.ctx.beginPath();
-            this.ctx.arc(m[0], m[1], 2, 0, 2 * Math.PI);
-            this.ctx.fill();
-            m[0] += Math.sin(Math.PI * 2 * m[2]);
-            m[1] += Math.cos(Math.PI * 2 * m[3]);
-          });
-        }
-      }
-
-      this.raf = requestAnimationFrame(this.draw);
+      this.fx = effect;
+      this.ro = new window.ResizeObserver(this.resize);
     }
 
     resize(c) {
-      if (this.raf) {
-        cancelAnimationFrame(this.raf);
+      this.fx.cancel();
+      const bb = c[0].target.getBoundingClientRect();
+      let {
+        top,
+        left,
+        width,
+        height
+      } = bb;
+
+      if (this.fx.padding > 0) {
+        width += this.fx.padding * 2;
+        height += this.fx.padding * 2;
+        top -= this.fx.padding;
+        left -= this.fx.padding;
       }
 
-      const bb = c[0].target.getBoundingClientRect();
       Object.assign(this.canvasref.current.style, {
+        display: 'block',
         position: 'absolute',
-        width: bb.width + 'px',
-        height: bb.height + 'px',
-        top: bb.top + 'px',
-        left: bb.left + 'px',
+        width: width + 'px',
+        height: height + 'px',
+        top: top + 'px',
+        left: left + 'px',
         zIndex: 999,
         pointerEvents: 'none'
       });
-      this.bb = bb;
-      this.ctx = this.canvasref.current.getContext('2d');
-      this.canvasref.current.width = bb.width;
-      this.canvasref.current.height = bb.height;
-      this.raf = requestAnimationFrame(this.draw);
+      this.canvasref.current.width = width;
+      this.canvasref.current.height = height;
+      const ctx = this.canvasref.current.getContext('2d');
+      this.fx.attach(ReactDOM.findDOMNode(this.ref.current), ctx, {
+        top,
+        left,
+        width,
+        height
+      });
+      this.fx.draw();
     }
 
     componentDidMount() {
-      const ro = new window.ResizeObserver(this.resize);
-      ro.observe(ReactDOM.findDOMNode(this.ref.current));
-      ReactDOM.findDOMNode(this.ref.current).addEventListener('mousemove', e => {
-        for (let x = 0; x < this.particleCount; x++) {
-          this.particles.push([e.x - this.bb.left, e.y - this.bb.top, Math.random(), Math.random(), 50 + Math.random() * 100]);
-        }
-      });
-      ReactDOM.findDOMNode(this.ref.current).addEventListener('click', e => {
-        for (let x = 0; x < this.particleCount * 4; x++) {
-          this.particles.push([e.x - this.bb.left, e.y - this.bb.top, Math.random(), Math.random(), 50 + Math.random() * 100]);
-        }
-      });
+      this.fx.listeners(ReactDOM.findDOMNode(this.ref.current));
+      this.ro.observe(ReactDOM.findDOMNode(this.ref.current));
     }
 
     render() {
       return React.createElement(React.Fragment, null, React.createElement(NeonComponent, {
         ref: this.ref
       }), React.createElement("canvas", {
-        ref: this.canvasref
+        ref: this.canvasref,
+        style: {
+          display: 'none'
+        }
       }));
     }
 
   };
 };
 
-export default withNeon;
+export { withNeon as default, fx };
