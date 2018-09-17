@@ -1,11 +1,12 @@
 
 export default class Fx {
 
-    constructor() {
+    constructor(options) {
 
         this.raf = null;
         this.ctx = null;
         this.bb = {};
+        this.options = options;
 
         this.draw = this.draw.bind(this);
 

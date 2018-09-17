@@ -11,7 +11,18 @@ body {
     grid-template-rows: repeat(3, 1fr);
 }
 
-div.fourtiles {
+div {
+    display: grid;
+    background-size: cover;
+}
+
+div.one {
+    padding: 100px;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+}
+
+div.four {
     padding: 30px;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);

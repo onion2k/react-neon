@@ -5,7 +5,7 @@ import withNeon, { fx } from "../../src/index.js";
 class ShadowsTile extends React.Component {
   render(){
     return (
-      <Tile bgIm="https://source.unsplash.com/random?shadow" className="fourtiles">
+      <Tile bgIm="https://source.unsplash.com/random?shadow" className="four">
         <div style={{ backgroundColor: "grey" }}></div>
         <div style={{ backgroundColor: "grey" }}></div>
         <div style={{ backgroundColor: "grey" }}></div>

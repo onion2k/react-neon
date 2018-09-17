@@ -24,25 +24,32 @@ const withNeon = (NeonComponent, effect) => {
             this.fx.cancel();
 
             const bb = c[0].target.getBoundingClientRect();
+            let { top, left, width, height } = bb;
+
+            if (this.fx.padding > 0) {
+                width += this.fx.padding * 2;
+                height += this.fx.padding * 2;
+                top -= this.fx.padding;
+                left -= this.fx.padding;
+            }
 
             Object.assign(this.canvasref.current.style, {
                 display: 'block',
                 position: 'absolute',
-                width: bb.width+'px',
-                height: bb.height+'px',
-                top: bb.top+'px',
-                left: bb.left+'px',
+                width: width+'px',
+                height: height+'px',
+                top: top+'px',
+                left: left+'px',
                 zIndex: 999,
                 pointerEvents: 'none'
             });
 
-            this.canvasref.current.width = bb.width;
-            this.canvasref.current.height = bb.height;
+            this.canvasref.current.width = width;
+            this.canvasref.current.height = height;
 
             const ctx = this.canvasref.current.getContext('2d');
 
-            this.fx.attach(ReactDOM.findDOMNode(this.ref.current), ctx, bb);
-            
+            this.fx.attach(ReactDOM.findDOMNode(this.ref.current), ctx, { top, left, width, height });
             this.fx.draw();
 
         }

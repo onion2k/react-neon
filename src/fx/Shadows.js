@@ -20,7 +20,6 @@ export default class Light extends Fx {
 
         Array.from(component.children).map((c)=>{
             const bb = c.getBoundingClientRect();
-            console.log(bb);
         });
 
         this.ctx = ctx;

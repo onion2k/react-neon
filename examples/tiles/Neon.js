@@ -5,13 +5,22 @@ import withNeon, { fx } from "../../src/index.js";
 class NeonTile extends React.Component {
   render(){
     return (
-      <Tile bgIm="https://source.unsplash.com/random?neon">
-        <div style={{ backgroundColor: "grey" }}></div>
+      <div style={{ backgroundImage: "url(https://source.unsplash.com/random?neon)" }}></div>
+    )
+  }
+};
+
+const effect = new fx.Neon({ size: 40 });
+const Neon = withNeon(NeonTile, effect);
+
+class neonTileWrapper extends React.Component {
+  render(){
+    return (
+      <Tile bg="black" className="one">
+        <Neon />
       </Tile>
     )
   }
 };
 
-const effect = new fx.Neon();
-
-export default withNeon(NeonTile, effect);
+export default neonTileWrapper;
