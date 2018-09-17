@@ -6,10 +6,10 @@ export default class Bokeh extends Fx {
         [0.1,0.3,3],
         [0.2,0.4,2],
         [0.3,0.2,2],
-        [0.4,0.6,1.5],
+        [0.4,0.4,1.5],
         [0.6,0.2,2],
-        [-0.1,0.6,1.5],
-        [0.75,0.9,2]
+        [-0.1,0.7,1.5],
+        [0.75,0.5,2]
     ];
 
     time = 0;
@@ -34,7 +34,7 @@ export default class Bokeh extends Fx {
             this.points.forEach((p)=>{
                 this.ctx.beginPath();
                 this.ctx.fillStyle = 'hsla(64,'+(30 * p[2])+'%,50%,'+(0.2 * p[2])+')';
-                this.drawShape(this.ctx, (this.bb.width * p[0]) + ((this.bb.width / 2) - (this.mouse[0] / p[2])), (this.bb.height * p[1]) + (this.bb.height / 2 - (this.mouse[1] / p[2])), 7, 50 * (4 - p[2]), 50 * (4 - p[2]), 0);
+                this.drawShape(this.ctx, (this.bb.width * p[0]) + ((this.mouse[0]/6 / p[2])), (this.bb.height * p[1]) - ( (this.mouse[1]/6 / p[2])), 7, 50 * (4 - p[2]), 50 * (4 - p[2]), 0);
                 this.ctx.fill();
             });
         }
