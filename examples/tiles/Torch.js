@@ -10,4 +10,7 @@ class TorchTile extends React.Component {
   }
 };
 
-export default withNeon(TorchTile, new fx.Torch());
+const effect = new fx.Torch();
+effect.listenMouse();
+
+export default withNeon(TorchTile, effect);
