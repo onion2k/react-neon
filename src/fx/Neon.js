@@ -40,7 +40,6 @@ export default class Neon extends Fx {
                 this.flicker = 0;
             }
 
-
             const offx = ((this.bb.width / 2) - this.mouse[0]) / 20;
             const offy = ((this.bb.height / 2) - this.mouse[1]) / 20;
 
