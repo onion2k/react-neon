@@ -18,13 +18,13 @@ const App = () => (
     <React.Fragment>
         <Particles />
         <Light />
-        <Heatmap />
+        <Snow />
         <Torch />
         <Bokeh />
         <Shadows />
         <Neon />
-        <Snow />
         <Sparks />
+        <Heatmap />
     </React.Fragment>
 );
 
