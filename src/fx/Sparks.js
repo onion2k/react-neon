@@ -6,7 +6,7 @@ export default class Sparks extends Fx {
         super();
 
         this.particles = [];
-        this.particleCount = 25;
+        this.particleCount = 40;
 
         this.sparkState = false;
 
@@ -27,8 +27,8 @@ export default class Sparks extends Fx {
                     const px = m[0];
                     const py = m[1];
 
-                    m[0] +=  ( m[2] ) * 2;
-                    m[1] +=  ( m[3] ) * 2;
+                    m[0] +=  m[2];
+                    m[1] +=  m[3];
 
                     this.ctx.strokeStyle = 'hsla(192,100%,50%,'+(m[4] / 100)+')';
                     this.ctx.beginPath();
@@ -70,7 +70,7 @@ export default class Sparks extends Fx {
 
                 for (let x=0; x< this.particleCount; x++) {
                     this.particles.push(
-                        [e.x - this.bb.left, e.y - this.bb.top, Math.sin((a - 1 + Math.random()), Math.cos((a - 1 + Math.random()), 50 + Math.random() * 100]
+                        [e.x - this.bb.left, e.y - this.bb.top, 2 * (Math.sin(a) + (-0.5 + Math.random())), 2* (Math.cos(a) + (-0.5 + Math.random())), Math.random() * 100]
                     );                    
                 }
 
