@@ -21,8 +21,29 @@ export default class Fx {
     }
 
     attach(component, ctx, bb) {
+
         this.ctx = ctx;
         this.bb = bb;
+        this.childPositions = [];
+
+        Array.from(component.children).map((c)=>{
+
+            const cbb = c.getBoundingClientRect();
+
+            const cp = {
+                _x: cbb.x,
+                _y: cbb.y,
+                top: cbb.top,
+                left: cbb.left,
+                width: cbb.width,
+                height: cbb.height,
+                x: cbb.x - this.bb.left,
+                y: cbb.y - this.bb.top
+            };
+
+            this.childPositions.push(cp);
+
+        });
 
         this.init();
     }

@@ -16,5 +16,6 @@ class ShadowsTile extends React.Component {
 };
 
 const effect = new fx.Shadows();
+effect.listenMouse()
 
 export default withNeon(ShadowsTile, effect);
