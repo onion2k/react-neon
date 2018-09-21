@@ -15,5 +15,6 @@ const heatmapConfig = {
 };
 
 const effect = new fx.Heatmap(heatmapConfig);
+effect.listenMouse().listenClick();
 
 export default withNeon(HeatTile, effect);

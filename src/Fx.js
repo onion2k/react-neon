@@ -20,6 +20,17 @@ export default class Fx {
 
     }
 
+    attach(component, ctx, bb) {
+        this.ctx = ctx;
+        this.bb = bb;
+
+        this.init();
+    }
+
+    init() {
+        // override me do
+    }
+
     draw() {
         // override this with a draw function
     }
@@ -51,35 +62,28 @@ export default class Fx {
         }
 
     }
-
-    init() {
-        // override me do
-    }
-
-    attach(component, ctx, bb) {
-        this.ctx = ctx;
-        this.bb = bb;
-
-        this.init();
-    }
     
     listenMouse(el) {
         // attach mouse listener
         this.options.mouse = true;
+        return this;
     }
 
     listenMouseHistory() {
         // attach position history listener   
         this.options.history = true;
+        return this;
     }
 
     listenClick() {
         // attach scroll position listener   
         this.options.clicks = true;
+        return this;
     }
 
     listenScrollPosition() {
 
+        return this;
     }
 }
 
