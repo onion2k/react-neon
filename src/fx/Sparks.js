@@ -12,10 +12,6 @@ export default class Sparks extends Fx {
 
     }
 
-    init() {
-        // console.log(this.childPositions);
-    }
-
     draw() {
         if (this.ctx!==null) {
 
@@ -42,8 +38,6 @@ export default class Sparks extends Fx {
     listeners(el) {
 
         el.addEventListener('mousemove', (e) => {
-
-            // console.log(e)
 
             const a = {
                 x: e.x - this.bb.left,
