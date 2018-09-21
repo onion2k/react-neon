@@ -5,8 +5,8 @@ import withNeon, { fx } from "../../src/index.js";
 class SparksTile extends React.Component {
   render(){
     return (
-        <Tile bgIm="https://source.unsplash.com/random?s" className="one">
-          <div style={{ backgroundColor: "grey" }}></div>
+        <Tile bg="black" className="one">
+          <div style={{ backgroundImage: "url(https://source.unsplash.com/random?s)" }}></div>
         </Tile>
         )
   }

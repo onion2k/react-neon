@@ -18,16 +18,24 @@ export default class Sparks extends Fx {
             this.ctx.clearRect(0, 0, this.bb.width, this.bb.height);
 
             if (this.particles.length) {
+                this.ctx.lineWidth = 2;
                 this.particles.forEach((m, i)=>{
                     if (--m[4]<0){
                         this.particles.splice(i, 1);
                     }
-                    this.ctx.fillStyle = 'hsla(64,100%,50%,'+(m[4] / 100)+')';
+
+                    const px = m[0];
+                    const py = m[1];
+
+                    m[0] +=  Math.sin( m[2] );
+                    m[1] +=  Math.cos( m[3] );
+
+                    this.ctx.strokeStyle = 'hsla(192,100%,50%,'+(m[4] / 100)+')';
                     this.ctx.beginPath();
-                    this.ctx.arc(m[0], m[1], 2, 0, 2 * Math.PI);
-                    this.ctx.fill();
-                    m[0] +=  Math.sin( m[2] ) / 2;
-                    m[1] +=  Math.cos( m[3] ) / 2;
+                    this.ctx.moveTo(px, py);
+                    this.ctx.lineTo(m[0], m[1]);
+                    this.ctx.stroke();
+
                 });    
             }
 
