@@ -12,16 +12,16 @@ withNeon is a React HoC, so you can use it when you export your component class 
 
 # Avialable effects
 
-* Neon (unfinished)
+* Neon
 * Bokeh (unfinished)
 * Particles
 * Heatmap
 * Torch
-* Light (unfinished)
+* Light
 * Shadows (unfinished)
-* Sparks (unfinished)
+* Sparks
 * Crystal (unfinished)
-* Snow (unfinished)
+* Snow
 
 # Building from source
 
