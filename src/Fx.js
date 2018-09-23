@@ -1,5 +1,20 @@
+/**
+*
+* React Neon FX effect base class.
+* Extend this class to create new effects to use with React Neon.
+*
+**/
 
 export default class Fx {
+    
+    /**
+    *
+    * mouse, clicks and history hold data about the state of the page to use in the effect
+    * mouse - an array that hold the mouse position relative to the component that's wrapper in Neon
+    * clicks - an array of mouse positions when the user has clicked
+    * history - the last 100 mouse positions
+    *
+    **/
 
     mouse = [0, 0];
     clicks = [];
@@ -7,19 +22,58 @@ export default class Fx {
 
     constructor(options) {
 
+        /**
+        *
+        * raf is the requestAnimationFrame id for the current frame. It's needed to cancel
+        * the animation callback in situations like resizing.
+        *
+        **/
         this.raf = null;
+
+        /**
+        *
+        * ctx is the Neon canvas element. By default it's a 2d context.
+        *
+        **/
         this.ctx = null;
+
+        /**
+        *
+        * bb holds the bounding box size information about the Neon element. Note that if the effect
+        * being used has a 'padding' option then this will be bigger than the component.
+        *
+        **/
         this.bb = {};
+
+        /**
+        *
+        * options is an object that holds the effects configuration object that's passed in at construction
+        * plus a few options that make adding listeners a bit simpler.
+        *
+        **/
         this.options = Object.assign({
             mouse: false,
             history: false,
             click: false
         }, options);
 
+        /**
+        *
+        * draw needs to be bound to the current object instance context for `this` to work.
+        *
+        **/
         this.draw = this.draw.bind(this);
 
     }
 
+
+    /**
+    *
+    * attach runs when the component is inserted in to the DOM, during componentDidMount() in
+    * the case of React. It has to be run at this time for the bounding boxes to be calculated and
+    * the canvas context to be available.
+    *
+    **/
     attach(component, ctx, bb) {
 
         this.ctx = ctx;
@@ -29,7 +83,6 @@ export default class Fx {
         Array.from(component.children).map((c)=>{
 
             const cbb = c.getBoundingClientRect();
-
             const cp = {
                 _x: cbb.x,
                 _y: cbb.y,
