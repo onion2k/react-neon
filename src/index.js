@@ -9,10 +9,10 @@ const withNeon = (NeonComponent, effect) => {
 
         ref = React.createRef();
         canvasref = React.createRef();
-        mouse = [];
-        clicks = [];
-        history = [];
-        bb = {};
+//         mouse = [];
+//         clicks = [];
+//         history = [];
+//         bb = {};
         resize = this.resize.bind(this);
 
         constructor(props) {
