@@ -101,22 +101,43 @@ export default class Fx {
         this.init();
     }
 
+    /**
+    *
+    * Override init() with a function that gets called as soon as the effect has attached to the DOM
+    *
+    **/
     init() {
         // override me do
     }
 
+    /**
+    *
+    * Override draw() with a function that draws to the canvas on every frame
+    *
+    **/
     draw() {
         // override this with a draw function
     }
 
+    /**
+    *
+    * Cancel stops the requestAnimationFrame callback on a resize so it isn't run twice.
+    * Override this if you need to do something before the draw() call runs.
+    *
+    **/
     cancel() {
         if (this.raf) {
             cancelAnimationFrame(this.raf);
         }
     }
 
+    /**
+    *
+    * Override listeners() if you need to return different data from element event listeners
+    *
+    **/
     listeners(el) {
-        // attach custom listeners
+
         if (this.options.mouse === true) {
             el.addEventListener('mousemove', (e) => {
                 this.mouse = [e.x - this.bb.left, e.y - this.bb.top];
@@ -137,6 +158,12 @@ export default class Fx {
 
     }
     
+    /**
+    *
+    * listenMouse, listenMouseHistory and listenClick are helpers for setting options. They'll probably
+    * be removed in a refactor soon because they're not really necessary.
+    *
+    **/
     listenMouse(el) {
         // attach mouse listener
         this.options.mouse = true;
@@ -155,6 +182,11 @@ export default class Fx {
         return this;
     }
 
+    /**
+    *
+    * TODO: We'll need to listen for the scroll position eventually.
+    *
+    **/
     listenScrollPosition() {
 
         return this;
