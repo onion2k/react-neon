@@ -20,8 +20,19 @@ const withNeon = (NeonComponent, effect) => {
     
     return class extends Component {
 
+        /**
+        *
+        * Use React's nice new createRef() method to generate some refs for the component and canvas
+        *
+        **/
         componentref = React.createRef();
         canvasref = React.createRef();
+
+        /**
+        *
+        * The resize callback needs to run in the context of this class
+        *
+        **/
         resize = this.resize.bind(this);
 
         constructor(props) {
