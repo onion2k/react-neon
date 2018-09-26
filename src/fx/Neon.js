@@ -14,7 +14,6 @@ export default class Neon extends Fx {
         if (this.ctx!==null) {
 
             this.ctx.clearRect(0, 0, this.bb.width, this.bb.height);
-
             this.ctx.globalCompositeOperation = "lighter";
 
             let color = this.color;
@@ -37,9 +36,6 @@ export default class Neon extends Fx {
 
                 this.flicker = 0;
             }
-
-            const offx = ((this.bb.width / 2) - this.mouse[0]) / 20;
-            const offy = ((this.bb.height / 2) - this.mouse[1]) / 20;
 
             const itl = { x: this.padding, y: this.padding };
             const itr = { x: this.bb.width - this.padding, y: this.padding };

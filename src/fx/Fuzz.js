@@ -10,8 +10,13 @@ export default class Fuzz extends Fx {
     init() {
         for (var i=0; i < this.maxActive / 2; i++) {
             let y = this.padding + Math.floor((Math.random() * (this.bb.height - (this.padding * 2))));
-            this.hair.push({ x: this.padding, x2: this.padding - this.length, y: y });
-            this.hair.push({ x: this.bb.width - this.padding, x2: this.bb.width - this.padding + this.length, y: y });
+            this.hair.push({ x: this.padding, x2: -1, y: y });
+            this.hair.push({ x: this.bb.width - this.padding, x2: +1, y: y });
+        }
+        for (var i=0; i < this.maxActive / 2; i++) {
+            let x = this.padding + Math.floor((Math.random() * (this.bb.width - (this.padding * 2))));
+            this.hair.push({ x: x, x2: -1, y: this.padding });
+            this.hair.push({ x: x, x2: +1, y: this.bb.height - this.padding });
         }
     }
 
@@ -30,9 +35,16 @@ export default class Fuzz extends Fx {
 
                 this.hair.forEach((m, i)=>{
 
+                    let d = Math.hypot(m.x - this.mouse[0], m.y - this.mouse[1]) * 0.05;
+
+                    d = d - d*0.5;
+
+                    const x2 = m.x + ( this.length* Math.sin( d ) );
+                    const y2 = m.y + ( this.length * Math.cos( d ) );
+
                     this.ctx.beginPath();
                     this.ctx.moveTo(m.x, m.y);
-                    this.ctx.lineTo(m.x2, m.y);
+                    this.ctx.lineTo(x2, y2);
                     this.ctx.stroke();
 
                 });
