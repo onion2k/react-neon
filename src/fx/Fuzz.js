@@ -4,14 +4,14 @@ export default class Fuzz extends Fx {
 
     padding = this.options.size;
     hair = [];
+    length = this.options.size * .8;
     maxActive = 200;
 
     init() {
-        console.log(this.bb, this.padding, this.bb.width - this.padding);
         for (var i=0; i < this.maxActive / 2; i++) {
-            let y = Math.floor(Math.random() * this.bb.height);
-            this.hair.push({ x: this.padding, x2: this.padding - 10, y: y });
-            this.hair.push({ x: this.bb.width - this.padding, x2: this.bb.width - this.padding + 10, y: y });
+            let y = this.padding + Math.floor((Math.random() * (this.bb.height - (this.padding * 2))));
+            this.hair.push({ x: this.padding, x2: this.padding - this.length, y: y });
+            this.hair.push({ x: this.bb.width - this.padding, x2: this.bb.width - this.padding + this.length, y: y });
         }
     }
 
@@ -20,6 +20,9 @@ export default class Fuzz extends Fx {
         if (this.ctx!==null) {
 
             this.ctx.clearRect(0, 0, this.bb.width, this.bb.height);
+
+            // this.ctx.fillStyle = 'hsla(0,100%,50%,0.5)';
+            // this.ctx.fillRect(0, 0, this.bb.width, this.bb.height);
 
             if (this.hair.length) {
 
