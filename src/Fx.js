@@ -51,6 +51,7 @@ export default class Fx {
         * plus a few options that make adding listeners a bit simpler.
         *
         **/
+        console.log("OPtions:",options);
         this.options = Object.assign({
             mouse: false,
             history: false,

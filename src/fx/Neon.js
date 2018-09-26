@@ -14,8 +14,6 @@ export default class Neon extends Fx {
         if (this.ctx!==null) {
 
             this.ctx.clearRect(0, 0, this.bb.width, this.bb.height);
-            // this.ctx.fillStyle = 'hsla(0,100%,100%, 0.5)';
-            // this.ctx.fillRect(0, 0, this.bb.width, this.bb.height);
 
             this.ctx.globalCompositeOperation = "lighter";
 

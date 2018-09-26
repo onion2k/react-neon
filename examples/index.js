@@ -6,7 +6,7 @@ import Light from './tiles/Light';
 import Heatmap from './tiles/Heatmap';
 import Torch from './tiles/Torch';
 import Bokeh from './tiles/Bokeh';
-import Crystal from './tiles/Crystal';
+import Fuzz from './tiles/Fuzz';
 import Neon from './tiles/Neon';
 import Shadows from './tiles/Shadows';
 import Snow from './tiles/Snow';
@@ -21,10 +21,10 @@ const App = () => (
         <Snow />
         <Torch />
         <Bokeh />
-        <Shadows />
         <Neon />
         <Sparks />
         <Heatmap />
+        <Fuzz />
     </React.Fragment>
 );
 
