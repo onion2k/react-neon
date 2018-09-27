@@ -89,7 +89,7 @@ export default class Fuzz extends Fx {
       }
     }
 
-    this.jitteraf = requestAnimationFrame(this.draw);
+    this.raf = requestAnimationFrame(this.draw);
   }
 
 }

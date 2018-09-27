@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "babel src --out-dir dist",
-    "umd": "babel src --plugins transform-es2015-modules-umd --out-file umd/index.js",
+    "umd": "babel --plugins=@babel/plugin-transform-modules-umd,add-module-exports --out-file dist/index.umd.js src",
     "start": "webpack-dev-server --mode development",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -47,6 +47,7 @@
     "webpack-dev-server": "^3.1.8"
   },
   "dependencies": {
-    "babel-plugin-transform-es2015-modules-umd": "^6.24.1"
+    "@babel/plugin-transform-modules-umd": "^7.1.0",
+    "babel-plugin-add-module-exports": "^1.0.0"
   }
 }
