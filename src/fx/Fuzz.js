@@ -34,6 +34,9 @@ export default class Fuzz extends Fx {
 
         if (this.ctx!==null) {
 
+            const MIN_ANGLE = 0.1;
+            const MAX_ANGLE = Math.PI * 0.75;
+
             this.ctx.clearRect(0, 0, this.bb.width, this.bb.height);
 
             if (this.hair.length) {
@@ -55,12 +58,10 @@ export default class Fuzz extends Fx {
                         m.v -= 0.05;
                     }
 
-                    if (m.v < 0.1) {
-                        m.v = 0.1;
-                    }
-
-                    if (m.v > Math.PI * 0.75) {
-                        m.v = Math.PI * 0.75;
+                    if (m.v < MIN_ANGLE) {
+                        m.v = MIN_ANGLE;
+                    } else if (m.v > MAX_ANGLE) {
+                        m.v = MAX_ANGLE;
                     }
 
                     const x2 = m.x + ( this.length * m.x2 * Math.sin( m.v ) );
