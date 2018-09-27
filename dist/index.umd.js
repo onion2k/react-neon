@@ -1,24 +1,26 @@
 (function (global, factory) {
-  if (typeof define === "function" && define.amd) {
-    define(["exports"], factory);
-  } else if (typeof exports !== "undefined") {
-    factory(exports);
-  } else {
-    var mod = {
-      exports: {}
-    };
-    factory(mod.exports);
-    global.Fx = mod.exports;
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react'), require('react-dom')) :
+  typeof define === 'function' && define.amd ? define(['exports', 'react', 'react-dom'], factory) :
+  (factory((global.neon = {}),global.React,global.ReactDOM));
+}(this, (function (exports,React,ReactDOM) { 'use strict';
+
+  var React__default = 'default' in React ? React['default'] : React;
+  ReactDOM = ReactDOM && ReactDOM.hasOwnProperty('default') ? ReactDOM['default'] : ReactDOM;
+
+  function _defineProperty(obj, key, value) {
+    if (key in obj) {
+      Object.defineProperty(obj, key, {
+        value: value,
+        enumerable: true,
+        configurable: true,
+        writable: true
+      });
+    } else {
+      obj[key] = value;
+    }
+
+    return obj;
   }
-})(this, function (_exports) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  _exports.default = void 0;
-
-  function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
   /**
   *
@@ -216,35 +218,7 @@
 
   }
 
-  _exports.default = Fx;
-  module.exports = exports.default;
-});
-(function (global, factory) {
-  if (typeof define === "function" && define.amd) {
-    define(["exports", "../Fx"], factory);
-  } else if (typeof exports !== "undefined") {
-    factory(exports, require("../Fx"));
-  } else {
-    var mod = {
-      exports: {}
-    };
-    factory(mod.exports, global.Fx);
-    global.Bokeh = mod.exports;
-  }
-})(this, function (_exports, _Fx) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  _exports.default = void 0;
-  _Fx = _interopRequireDefault(_Fx);
-
-  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-  function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-  class Bokeh extends _Fx.default {
+  class Bokeh extends Fx {
     constructor(...args) {
       super(...args);
 
@@ -291,35 +265,7 @@
 
   }
 
-  _exports.default = Bokeh;
-  module.exports = exports.default;
-});
-(function (global, factory) {
-  if (typeof define === "function" && define.amd) {
-    define(["exports", "../Fx"], factory);
-  } else if (typeof exports !== "undefined") {
-    factory(exports, require("../Fx"));
-  } else {
-    var mod = {
-      exports: {}
-    };
-    factory(mod.exports, global.Fx);
-    global.Fuzz = mod.exports;
-  }
-})(this, function (_exports, _Fx) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  _exports.default = void 0;
-  _Fx = _interopRequireDefault(_Fx);
-
-  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-  function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-  class Fuzz extends _Fx.default {
+  class Fuzz extends Fx {
     constructor(...args) {
       super(...args);
 
@@ -412,38 +358,13 @@
 
   }
 
-  _exports.default = Fuzz;
-  module.exports = exports.default;
-});
-(function (global, factory) {
-  if (typeof define === "function" && define.amd) {
-    define(["exports", "../Fx"], factory);
-  } else if (typeof exports !== "undefined") {
-    factory(exports, require("../Fx"));
-  } else {
-    var mod = {
-      exports: {}
-    };
-    factory(mod.exports, global.Fx);
-    global.Heatmap = mod.exports;
-  }
-})(this, function (_exports, _Fx) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  _exports.default = void 0;
-  _Fx = _interopRequireDefault(_Fx);
-
-  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
   /**
   *
   * Heatmap is a very basic map of the positions where the user has clicked.
   *
   **/
-  class Heatmap extends _Fx.default {
+
+  class Heatmap extends Fx {
     draw() {
       /**
       *
@@ -494,38 +415,13 @@
 
   }
 
-  _exports.default = Heatmap;
-  module.exports = exports.default;
-});
-(function (global, factory) {
-  if (typeof define === "function" && define.amd) {
-    define(["exports", "../Fx"], factory);
-  } else if (typeof exports !== "undefined") {
-    factory(exports, require("../Fx"));
-  } else {
-    var mod = {
-      exports: {}
-    };
-    factory(mod.exports, global.Fx);
-    global.Light = mod.exports;
-  }
-})(this, function (_exports, _Fx) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  _exports.default = void 0;
-  _Fx = _interopRequireDefault(_Fx);
-
-  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
   /**
   *
   * A light shining from the center of the component that follows the user's mouse
   *
   **/
-  class Light extends _Fx.default {
+
+  class Light extends Fx {
     /**
     *
     * clamp is a utility that takes a value, min and max, and returns the min if it's less than the min and the
@@ -588,35 +484,7 @@
 
   }
 
-  _exports.default = Light;
-  module.exports = exports.default;
-});
-(function (global, factory) {
-  if (typeof define === "function" && define.amd) {
-    define(["exports", "../Fx"], factory);
-  } else if (typeof exports !== "undefined") {
-    factory(exports, require("../Fx"));
-  } else {
-    var mod = {
-      exports: {}
-    };
-    factory(mod.exports, global.Fx);
-    global.Neon = mod.exports;
-  }
-})(this, function (_exports, _Fx) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  _exports.default = void 0;
-  _Fx = _interopRequireDefault(_Fx);
-
-  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-  function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-  class Neon extends _Fx.default {
+  class Neon extends Fx {
     constructor(...args) {
       super(...args);
 
@@ -741,38 +609,13 @@
 
   }
 
-  _exports.default = Neon;
-  module.exports = exports.default;
-});
-(function (global, factory) {
-  if (typeof define === "function" && define.amd) {
-    define(["exports", "../Fx"], factory);
-  } else if (typeof exports !== "undefined") {
-    factory(exports, require("../Fx"));
-  } else {
-    var mod = {
-      exports: {}
-    };
-    factory(mod.exports, global.Fx);
-    global.Particles = mod.exports;
-  }
-})(this, function (_exports, _Fx) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  _exports.default = void 0;
-  _Fx = _interopRequireDefault(_Fx);
-
-  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
   /**
   *
   * Basic particles radiating from the user's mouse, with more when the user clicks.
   *
   **/
-  class Particles extends _Fx.default {
+
+  class Particles extends Fx {
     constructor() {
       super();
       /**
@@ -876,71 +719,17 @@
 
   }
 
-  _exports.default = Particles;
-  module.exports = exports.default;
-});
-(function (global, factory) {
-  if (typeof define === "function" && define.amd) {
-    define(["exports", "react", "react-dom", "../Fx"], factory);
-  } else if (typeof exports !== "undefined") {
-    factory(exports, require("react"), require("react-dom"), require("../Fx"));
-  } else {
-    var mod = {
-      exports: {}
-    };
-    factory(mod.exports, global.react, global.reactDom, global.Fx);
-    global.Shadows = mod.exports;
-  }
-})(this, function (_exports, _react, _reactDom, _Fx) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  _exports.default = void 0;
-  _react = _interopRequireDefault(_react);
-  _reactDom = _interopRequireDefault(_reactDom);
-  _Fx = _interopRequireDefault(_Fx);
-
-  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-  class Light extends _Fx.default {
+  class Light$1 extends Fx {
     init() {// console.log(this.childPositions);
     }
 
     draw() {
-      if (this.ctx !== null) {}
+      if (this.ctx !== null) ;
 
       this.raf = requestAnimationFrame(this.draw);
     }
 
   }
-
-  _exports.default = Light;
-  module.exports = exports.default;
-});
-(function (global, factory) {
-  if (typeof define === "function" && define.amd) {
-    define(["exports", "../Fx"], factory);
-  } else if (typeof exports !== "undefined") {
-    factory(exports, require("../Fx"));
-  } else {
-    var mod = {
-      exports: {}
-    };
-    factory(mod.exports, global.Fx);
-    global.Snow = mod.exports;
-  }
-})(this, function (_exports, _Fx) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  _exports.default = void 0;
-  _Fx = _interopRequireDefault(_Fx);
-
-  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
   /**
   *
@@ -948,7 +737,8 @@
   * bit like it's snowing.
   *
   **/
-  class Snow extends _Fx.default {
+
+  class Snow extends Fx {
     /**
     *
     * Set up some defaults. These should really come from amn options config object...
@@ -1064,33 +854,7 @@
 
   }
 
-  _exports.default = Snow;
-  module.exports = exports.default;
-});
-(function (global, factory) {
-  if (typeof define === "function" && define.amd) {
-    define(["exports", "../Fx"], factory);
-  } else if (typeof exports !== "undefined") {
-    factory(exports, require("../Fx"));
-  } else {
-    var mod = {
-      exports: {}
-    };
-    factory(mod.exports, global.Fx);
-    global.Sparks = mod.exports;
-  }
-})(this, function (_exports, _Fx) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  _exports.default = void 0;
-  _Fx = _interopRequireDefault(_Fx);
-
-  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-  class Sparks extends _Fx.default {
+  class Sparks extends Fx {
     constructor() {
       super();
       this.particles = [];
@@ -1153,38 +917,13 @@
 
   }
 
-  _exports.default = Sparks;
-  module.exports = exports.default;
-});
-(function (global, factory) {
-  if (typeof define === "function" && define.amd) {
-    define(["exports", "../Fx"], factory);
-  } else if (typeof exports !== "undefined") {
-    factory(exports, require("../Fx"));
-  } else {
-    var mod = {
-      exports: {}
-    };
-    factory(mod.exports, global.Fx);
-    global.Torch = mod.exports;
-  }
-})(this, function (_exports, _Fx) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  _exports.default = void 0;
-  _Fx = _interopRequireDefault(_Fx);
-
-  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
   /**
   *
   * This effect leverages the React-Neon FX base class from https://github.com/onion2k/react-neon
   *
   **/
-  class Torch extends _Fx.default {
+
+  class Torch extends Fx {
     draw() {
       /**
       *
@@ -1236,60 +975,18 @@
 
   }
 
-  _exports.default = Torch;
-  module.exports = exports.default;
-});
-(function (global, factory) {
-  if (typeof define === "function" && define.amd) {
-    define(["exports", "react", "react-dom", "./fx/Bokeh.js", "./fx/Fuzz.js", "./fx/Heatmap.js", "./fx/Light.js", "./fx/Neon.js", "./fx/Particles.js", "./fx/Shadows.js", "./fx/Snow.js", "./fx/Sparks.js", "./fx/Torch.js"], factory);
-  } else if (typeof exports !== "undefined") {
-    factory(exports, require("react"), require("react-dom"), require("./fx/Bokeh.js"), require("./fx/Fuzz.js"), require("./fx/Heatmap.js"), require("./fx/Light.js"), require("./fx/Neon.js"), require("./fx/Particles.js"), require("./fx/Shadows.js"), require("./fx/Snow.js"), require("./fx/Sparks.js"), require("./fx/Torch.js"));
-  } else {
-    var mod = {
-      exports: {}
-    };
-    factory(mod.exports, global.react, global.reactDom, global.Bokeh, global.Fuzz, global.Heatmap, global.Light, global.Neon, global.Particles, global.Shadows, global.Snow, global.Sparks, global.Torch);
-    global.index = mod.exports;
-  }
-})(this, function (_exports, _react, _reactDom, _Bokeh, _Fuzz, _Heatmap, _Light, _Neon, _Particles, _Shadows, _Snow, _Sparks, _Torch) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  _exports.fx = _exports.default = void 0;
-  _react = _interopRequireWildcard(_react);
-  _reactDom = _interopRequireDefault(_reactDom);
-  _Bokeh = _interopRequireDefault(_Bokeh);
-  _Fuzz = _interopRequireDefault(_Fuzz);
-  _Heatmap = _interopRequireDefault(_Heatmap);
-  _Light = _interopRequireDefault(_Light);
-  _Neon = _interopRequireDefault(_Neon);
-  _Particles = _interopRequireDefault(_Particles);
-  _Shadows = _interopRequireDefault(_Shadows);
-  _Snow = _interopRequireDefault(_Snow);
-  _Sparks = _interopRequireDefault(_Sparks);
-  _Torch = _interopRequireDefault(_Torch);
-
-  function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-  function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
-
-  function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
   const fx = {
-    Bokeh: _Bokeh.default,
-    Fuzz: _Fuzz.default,
-    Heatmap: _Heatmap.default,
-    Light: _Light.default,
-    Neon: _Neon.default,
-    Particles: _Particles.default,
-    Shadows: _Shadows.default,
-    Snow: _Snow.default,
-    Sparks: _Sparks.default,
-    Torch: _Torch.default
+    Bokeh: Bokeh,
+    Fuzz: Fuzz,
+    Heatmap: Heatmap,
+    Light: Light,
+    Neon: Neon,
+    Particles: Particles,
+    Shadows: Light$1,
+    Snow: Snow,
+    Sparks: Sparks,
+    Torch: Torch
   };
-  _exports.fx = fx;
   Object.freeze(fx);
   /**
   *
@@ -1300,7 +997,7 @@
   **/
 
   const withNeon = (NeonComponent, effect) => {
-    return class extends _react.Component {
+    return class extends React.Component {
       /**
       *
       * Use React's nice new createRef() method to generate some refs for the component and canvas
@@ -1320,9 +1017,9 @@
         *
         **/
 
-        _defineProperty(this, "componentref", _react.default.createRef());
+        _defineProperty(this, "componentref", React__default.createRef());
 
-        _defineProperty(this, "canvasref", _react.default.createRef());
+        _defineProperty(this, "canvasref", React__default.createRef());
 
         _defineProperty(this, "resize", this.resize.bind(this));
 
@@ -1421,7 +1118,7 @@
         *
         **/
 
-        this.fx.attach(_reactDom.default.findDOMNode(this.componentref.current), ctx, {
+        this.fx.attach(ReactDOM.findDOMNode(this.componentref.current), ctx, {
           top,
           left,
           width,
@@ -1441,8 +1138,8 @@
 
 
       componentDidMount() {
-        this.fx.listeners(_reactDom.default.findDOMNode(this.componentref.current));
-        this.ro.observe(_reactDom.default.findDOMNode(this.componentref.current));
+        this.fx.listeners(ReactDOM.findDOMNode(this.componentref.current));
+        this.ro.observe(ReactDOM.findDOMNode(this.componentref.current));
       }
       /**
       *
@@ -1453,9 +1150,9 @@
 
 
       render() {
-        return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(NeonComponent, {
+        return React__default.createElement(React__default.Fragment, null, React__default.createElement(NeonComponent, {
           ref: this.componentref
-        }), _react.default.createElement("canvas", {
+        }), React__default.createElement("canvas", {
           ref: this.canvasref,
           style: {
             display: 'none'
@@ -1465,13 +1162,10 @@
 
     };
   };
-  /**
-  *
-  * Export the withNeon HoC as the default and the fx library. This way users who have their own effect can import
-  * the withNeon function on it's own.
-  *
-  **/
 
+  exports.default = withNeon;
+  exports.fx = fx;
 
-  _exports.default = withNeon;
-});
+  Object.defineProperty(exports, '__esModule', { value: true });
+
+})));

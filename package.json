@@ -48,6 +48,7 @@
   },
   "dependencies": {
     "@babel/plugin-transform-modules-umd": "^7.1.0",
-    "babel-plugin-add-module-exports": "^1.0.0"
+    "babel-plugin-add-module-exports": "^1.0.0",
+    "rollup-plugin-babel": "^4.0.3"
   }
 }
