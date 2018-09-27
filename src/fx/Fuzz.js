@@ -5,23 +5,29 @@ export default class Fuzz extends Fx {
     padding = this.options.size;
     hair = [];
     length = this.options.size * .8;
-    maxActive = 200;
+    maxActive = 500;
 
     jitter(value) {
         return (Math.random() * value) - (value / 2);
     }
 
     init() {
+
+        const w = this.bb.width - this.padding * 2;
+        const h = this.bb.height - this.padding * 2;
+
         for (var i=0; i < this.maxActive / 2; i++) {
+
             let y = this.padding + Math.floor((Math.random() * (this.bb.height - (this.padding * 2))));
-            this.hair.push({ x: this.padding + this.jitter(-10), x2: -1, y: y });
-            this.hair.push({ x: this.bb.width - this.padding + this.jitter(10), x2: +1, y: y });
-        }
-        for (var i=0; i < this.maxActive / 2; i++) {
+            this.hair.push({ v: 0, x: this.padding + this.jitter(-10), x2: -1, y: y });
+            this.hair.push({ v: 0, x: this.bb.width - this.padding + this.jitter(10), x2: +1, y: y });
+
             let x = this.padding + Math.floor((Math.random() * (this.bb.width - (this.padding * 2))));
-            this.hair.push({ x: x, x2: -1, y: this.padding + this.jitter(-10) });
-            this.hair.push({ x: x, x2: +1, y: this.bb.height - this.padding + this.jitter(10) });
+            this.hair.push({ v: 0, x: x, x2: x < this.bb.width / 2 ? -1 : 1, y: this.padding + this.jitter(-10) });
+            this.hair.push({ v: 0, x: x, x2: x < this.bb.width / 2 ? -1 : 1, y: this.bb.height - this.padding + this.jitter(10) });
+
         }
+
     }
 
     draw() {
@@ -36,12 +42,29 @@ export default class Fuzz extends Fx {
 
                 this.hair.forEach((m, i)=>{
 
-                    let d = Math.hypot(m.x - this.mouse[0], m.y - this.mouse[1]) * 0.05;
+                    if (this.mouseover) {
+                        let d = Math.hypot(m.x - this.mouse[0], m.y - this.mouse[1]);
 
-                    d = d - d*0.5;
+                        if (d < 100) {
+                            m.v += 0.3;
+                        } else {
+                            m.v -= 0.05;
+                        }
 
-                    const x2 = m.x + ( this.length* Math.sin( d ) );
-                    const y2 = m.y + ( this.length * Math.cos( d ) );
+                    } else {
+                        m.v -= 0.05;
+                    }
+
+                    if (m.v < 0.1) {
+                        m.v = 0.1;
+                    }
+
+                    if (m.v > Math.PI * 0.75) {
+                        m.v = Math.PI * 0.75;
+                    }
+
+                    const x2 = m.x + ( this.length * m.x2 * Math.sin( m.v ) );
+                    const y2 = m.y + ( this.length * Math.cos( m.v ) );
 
                     this.ctx.beginPath();
                     this.ctx.moveTo(m.x, m.y);

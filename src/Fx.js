@@ -19,6 +19,7 @@ export default class Fx {
     mouse = [0, 0];
     clicks = [];
     history = [];
+    mouseover = false;
 
     constructor(options) {
 
@@ -141,7 +142,13 @@ export default class Fx {
         if (this.options.mouse === true) {
             el.addEventListener('mousemove', (e) => {
                 this.mouse = [e.x - this.bb.left, e.y - this.bb.top];
-            })
+            });
+            el.addEventListener('mouseenter', (e) => {
+                this.mouseover = true;
+            });
+            el.addEventListener('mouseout', (e) => {
+                this.mouseover = false;
+            });
         }
 
         if (this.options.history === true) {
