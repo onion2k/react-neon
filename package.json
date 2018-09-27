@@ -5,9 +5,13 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "babel src --out-dir dist",
+    "umd": "babel src --plugins transform-es2015-modules-umd --out-dir umd",
     "start": "webpack-dev-server --mode development",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "files": [
+    "umd"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/onion2k/react-neon.git"
@@ -41,5 +45,8 @@
     "webpack": "^4.17.2",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.8"
+  },
+  "dependencies": {
+    "babel-plugin-transform-es2015-modules-umd": "^6.24.1"
   }
 }
