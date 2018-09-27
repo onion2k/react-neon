@@ -7,16 +7,20 @@ export default class Fuzz extends Fx {
     length = this.options.size * .8;
     maxActive = 200;
 
+    jitter(value) {
+        return (Math.random() * value) - (value / 2);
+    }
+
     init() {
         for (var i=0; i < this.maxActive / 2; i++) {
             let y = this.padding + Math.floor((Math.random() * (this.bb.height - (this.padding * 2))));
-            this.hair.push({ x: this.padding, x2: -1, y: y });
-            this.hair.push({ x: this.bb.width - this.padding, x2: +1, y: y });
+            this.hair.push({ x: this.padding + this.jitter(-10), x2: -1, y: y });
+            this.hair.push({ x: this.bb.width - this.padding + this.jitter(10), x2: +1, y: y });
         }
         for (var i=0; i < this.maxActive / 2; i++) {
             let x = this.padding + Math.floor((Math.random() * (this.bb.width - (this.padding * 2))));
-            this.hair.push({ x: x, x2: -1, y: this.padding });
-            this.hair.push({ x: x, x2: +1, y: this.bb.height - this.padding });
+            this.hair.push({ x: x, x2: -1, y: this.padding + this.jitter(-10) });
+            this.hair.push({ x: x, x2: +1, y: this.bb.height - this.padding + this.jitter(10) });
         }
     }
 
@@ -25,9 +29,6 @@ export default class Fuzz extends Fx {
         if (this.ctx!==null) {
 
             this.ctx.clearRect(0, 0, this.bb.width, this.bb.height);
-
-            // this.ctx.fillStyle = 'hsla(0,100%,50%,0.5)';
-            // this.ctx.fillRect(0, 0, this.bb.width, this.bb.height);
 
             if (this.hair.length) {
 
@@ -52,7 +53,7 @@ export default class Fuzz extends Fx {
 
         }
 
-        this.raf = requestAnimationFrame(this.draw);
+        this.jitteraf = requestAnimationFrame(this.draw);
 
     }
 
