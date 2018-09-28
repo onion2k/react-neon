@@ -5,4 +5,5 @@ export default class Light extends Fx {
 
     this.raf = requestAnimationFrame(this.draw);
   }
+
 }

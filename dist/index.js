@@ -15,6 +15,7 @@ import _fx_Heatmap from "./fx/Heatmap.js";
 import _fx_Light from "./fx/Light.js";
 import _fx_Neon from "./fx/Neon.js";
 import _fx_Particles from "./fx/Particles.js";
+import _fx_Shader from "./fx/Shader.js";
 import _fx_Shadows from "./fx/Shadows.js";
 import _fx_Snow from "./fx/Snow.js";
 import _fx_Sparks from "./fx/Sparks.js";
@@ -26,6 +27,7 @@ const fx = {
   Light: _fx_Light,
   Neon: _fx_Neon,
   Particles: _fx_Particles,
+  Shader: _fx_Shader,
   Shadows: _fx_Shadows,
   Snow: _fx_Snow,
   Sparks: _fx_Sparks,
@@ -154,7 +156,7 @@ const withNeon = (NeonComponent, effect) => {
       *
       **/
 
-      const ctx = this.canvasref.current.getContext('2d');
+      const ctx = this.canvasref.current.getContext(this.fx.context);
       /**
       *
       * Finally we attach to the effect passing in the component element, the canvas context and the 

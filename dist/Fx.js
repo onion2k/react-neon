@@ -24,6 +24,8 @@ export default class Fx {
 
     _defineProperty(this, "mouseover", false);
 
+    _defineProperty(this, "context", '2d');
+
     /**
     *
     * raf is the requestAnimationFrame id for the current frame. It's needed to cancel

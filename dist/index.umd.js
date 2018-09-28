@@ -1,8 +1,8 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react'), require('react-dom')) :
-  typeof define === 'function' && define.amd ? define(['exports', 'react', 'react-dom'], factory) :
-  (factory((global.neon = {}),global.React,global.ReactDOM));
-}(this, (function (exports,React,ReactDOM) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('twgl.js'), require('react'), require('react-dom')) :
+  typeof define === 'function' && define.amd ? define(['exports', 'twgl.js', 'react', 'react-dom'], factory) :
+  (factory((global.neon = {}),global.twgl,global.React,global.ReactDOM));
+}(this, (function (exports,twgl,React,ReactDOM) { 'use strict';
 
   var React__default = 'default' in React ? React['default'] : React;
   ReactDOM = ReactDOM && ReactDOM.hasOwnProperty('default') ? ReactDOM['default'] : ReactDOM;
@@ -45,6 +45,8 @@
       _defineProperty(this, "history", []);
 
       _defineProperty(this, "mouseover", false);
+
+      _defineProperty(this, "context", '2d');
 
       /**
       *
@@ -719,10 +721,41 @@
 
   }
 
-  class Light$1 extends Fx {
-    init() {// console.log(this.childPositions);
+  class Shader extends Fx {
+    constructor(...args) {
+      super(...args);
+
+      _defineProperty(this, "context", 'webgl');
     }
 
+    init() {
+      this.programInfo = twgl.createProgramInfo(this.ctx, [this.options.vs, this.options.fs]);
+      let arrays = {
+        position: [-1, -1, 0, 1, -1, 0, -1, 1, 0, -1, 1, 0, 1, -1, 0, 1, 1, 0]
+      };
+      this.bufferInfo = twgl.createBufferInfoFromArrays(this.ctx, arrays);
+    }
+
+    draw(time) {
+      if (this.ctx !== null) {
+        twgl.resizeCanvasToDisplaySize(this.ctx.canvas);
+        this.ctx.viewport(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+        var uniforms = {
+          u_time: time * 0.001,
+          u_resolution: [this.ctx.canvas.width, this.ctx.canvas.height]
+        };
+        this.ctx.useProgram(this.programInfo.program);
+        twgl.setBuffersAndAttributes(this.ctx, this.programInfo, this.bufferInfo);
+        twgl.setUniforms(this.programInfo, uniforms);
+        twgl.drawBufferInfo(this.ctx, this.bufferInfo);
+      }
+
+      this.raf = requestAnimationFrame(this.draw);
+    }
+
+  }
+
+  class Light$1 extends Fx {
     draw() {
       if (this.ctx !== null) ;
 
@@ -982,6 +1015,7 @@
     Light: Light,
     Neon: Neon,
     Particles: Particles,
+    Shader: Shader,
     Shadows: Light$1,
     Snow: Snow,
     Sparks: Sparks,
@@ -1110,7 +1144,7 @@
         *
         **/
 
-        const ctx = this.canvasref.current.getContext('2d');
+        const ctx = this.canvasref.current.getContext(this.fx.context);
         /**
         *
         * Finally we attach to the effect passing in the component element, the canvas context and the 
