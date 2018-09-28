@@ -124,7 +124,7 @@ const withNeon = (NeonComponent, effect) => {
             * by the plugin so we can have 3d contexts for shaders.
             *
             **/
-            const ctx = this.canvasref.current.getContext('2d');
+            const ctx = this.canvasref.current.getContext(this.fx.context);
 
             /**
             *

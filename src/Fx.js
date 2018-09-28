@@ -20,6 +20,7 @@ export default class Fx {
     clicks = [];
     history = [];
     mouseover = false;
+    context = '2d';
 
     constructor(options) {
 

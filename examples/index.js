@@ -11,6 +11,7 @@ import Neon from './tiles/Neon';
 import Shadows from './tiles/Shadows';
 import Snow from './tiles/Snow';
 import Sparks from './tiles/Sparks';
+import Shader from './tiles/Shader';
 
 import "./index.css";
 
@@ -23,7 +24,7 @@ const App = () => (
         <Bokeh />
         <Neon />
         <Sparks />
-        <Heatmap />
+        <Shader />
         <Fuzz />
     </React.Fragment>
 );
