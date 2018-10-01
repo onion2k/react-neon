@@ -2,7 +2,6 @@ import Fx from "../Fx";
 
 export default class Neon extends Fx {
 
-    padding = this.options.size;
     flicker = 0;
     randFlicker = 0;
 
@@ -37,18 +36,18 @@ export default class Neon extends Fx {
                 this.flicker = 0;
             }
 
-            const itl = { x: this.padding, y: this.padding };
-            const itr = { x: this.bb.width - this.padding, y: this.padding };
-            const ibl = { x: this.padding, y: this.bb.height - this.padding };
-            const ibr = { x: this.bb.width - this.padding, y: this.bb.height - this.padding };
+            const itl = { x: this.options.padding, y: this.options.padding };
+            const itr = { x: this.bb.width - this.options.padding, y: this.options.padding };
+            const ibl = { x: this.options.padding, y: this.bb.height - this.options.padding };
+            const ibr = { x: this.bb.width - this.options.padding, y: this.bb.height - this.options.padding };
 
             const otl = { x: 0, y: 0 };
             const otr = { x: this.bb.width, y: 0 };
             const obl = { x: 0, y: this.bb.height };
             const obr = { x: this.bb.width, y: this.bb.height };
 
-            const iw = this.bb.width - this.padding * 2;
-            const ih = this.bb.height - this.padding * 2;
+            const iw = this.bb.width - this.options.padding * 2;
+            const ih = this.bb.height - this.options.padding * 2;
 
             const ow = this.bb.width;
             const oh = this.bb.height;
@@ -77,31 +76,31 @@ export default class Neon extends Fx {
             this.ctx.fillStyle = g;
             this.ctx.fillRect(ibl.x, ibl.y, iw, oh);
 
-            g = this.ctx.createRadialGradient(itl.x, itl.y, 0, itl.x, itl.y, this.padding);
+            g = this.ctx.createRadialGradient(itl.x, itl.y, 0, itl.x, itl.y, this.options.padding);
             g.addColorStop(0, 'hsla('+color+','+saturation+','+lightness+',1)');
             g.addColorStop(1, 'hsla('+color+','+saturation+','+lightness+',0)');
             this.ctx.fillStyle = g;
-            this.ctx.fillRect(otl.x, otl.y, this.padding, this.padding);
+            this.ctx.fillRect(otl.x, otl.y, this.options.padding, this.options.padding);
 
-            g = this.ctx.createRadialGradient(itr.x, itr.y, 0, itr.x, itr.y, this.padding);
+            g = this.ctx.createRadialGradient(itr.x, itr.y, 0, itr.x, itr.y, this.options.padding);
             g.addColorStop(0, 'hsla('+color+','+saturation+','+lightness+',1)');
             g.addColorStop(1, 'hsla('+color+','+saturation+','+lightness+',0)');
             this.ctx.fillStyle = g;
-            this.ctx.fillRect(itr.x, otr.y, this.padding, this.padding);
+            this.ctx.fillRect(itr.x, otr.y, this.options.padding, this.options.padding);
 
-            g = this.ctx.createRadialGradient(ibl.x, ibl.y, 0, ibl.x, ibl.y, this.padding);
+            g = this.ctx.createRadialGradient(ibl.x, ibl.y, 0, ibl.x, ibl.y, this.options.padding);
             g.addColorStop(0, 'hsla('+color+','+saturation+','+lightness+',1)');
             g.addColorStop(1, 'hsla('+color+','+saturation+','+lightness+',0)');
             this.ctx.fillStyle = g;
-            this.ctx.fillRect(obl.x, ibl.y, this.padding, this.padding);
+            this.ctx.fillRect(obl.x, ibl.y, this.options.padding, this.options.padding);
 
-            g = this.ctx.createRadialGradient(ibr.x, ibr.y, 0, ibr.x, ibr.y, this.padding);
+            g = this.ctx.createRadialGradient(ibr.x, ibr.y, 0, ibr.x, ibr.y, this.options.padding);
             g.addColorStop(0, 'hsla('+color+','+saturation+','+lightness+',1)');
             g.addColorStop(1, 'hsla('+color+','+saturation+','+lightness+',0)');
             this.ctx.fillStyle = g;
-            this.ctx.fillRect(ibr.x, ibr.y, this.padding, this.padding);
+            this.ctx.fillRect(ibr.x, ibr.y, this.options.padding, this.options.padding);
 
-            this.ctx.clearRect(this.padding, this.padding, this.bb.width - this.padding * 2, this.bb.height - this.padding * 2);
+            this.ctx.clearRect(this.options.padding, this.options.padding, this.bb.width - this.options.padding * 2, this.bb.height - this.options.padding * 2);
 
         }
         this.raf = requestAnimationFrame(this.draw);

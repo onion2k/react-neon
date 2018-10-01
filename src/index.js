@@ -84,11 +84,11 @@ const withNeon = (NeonComponent, effect) => {
             * the top and left to move the origin to the right position.
             *
             **/
-            if (this.fx.padding > 0) {
-                width += this.fx.padding * 2;
-                height += this.fx.padding * 2;
-                top -= this.fx.padding;
-                left -= this.fx.padding;
+            if (this.fx.options.padding > 0) {
+                width += this.fx.options.padding * 2;
+                height += this.fx.options.padding * 2;
+                top -= this.fx.options.padding;
+                left -= this.fx.options.padding;
             }
 
             /**

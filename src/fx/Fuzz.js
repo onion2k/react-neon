@@ -2,9 +2,8 @@ import Fx from "../Fx";
 
 export default class Fuzz extends Fx {
 
-    padding = this.options.size;
     hair = [];
-    length = this.options.size * .8;
+    length = this.options.size;
     maxActive = 500;
 
     jitter(value) {
@@ -18,13 +17,13 @@ export default class Fuzz extends Fx {
 
         for (var i=0; i < this.maxActive / 2; i++) {
 
-            let y = this.padding + Math.floor((Math.random() * (this.bb.height - (this.padding * 2))));
-            this.hair.push({ v: 0, x: this.padding + this.jitter(-10), x2: -1, y: y });
-            this.hair.push({ v: 0, x: this.bb.width - this.padding + this.jitter(10), x2: +1, y: y });
+            let y = this.options.padding + Math.floor((Math.random() * (this.bb.height - (this.options.padding * 2))));
+            this.hair.push({ v: 0, x: this.options.padding + this.jitter(-10), x2: -1, y: y });
+            this.hair.push({ v: 0, x: this.bb.width - this.options.padding + this.jitter(10), x2: +1, y: y });
 
-            let x = this.padding + Math.floor((Math.random() * (this.bb.width - (this.padding * 2))));
-            this.hair.push({ v: 0, x: x, x2: x < this.bb.width / 2 ? -1 : 1, y: this.padding + this.jitter(-10) });
-            this.hair.push({ v: 0, x: x, x2: x < this.bb.width / 2 ? -1 : 1, y: this.bb.height - this.padding + this.jitter(10) });
+            let x = this.options.padding + Math.floor((Math.random() * (this.bb.width - (this.options.padding * 2))));
+            this.hair.push({ v: 0, x: x, x2: x < this.bb.width / 2 ? -1 : 1, y: this.options.padding + this.jitter(-10) });
+            this.hair.push({ v: 0, x: x, x2: x < this.bb.width / 2 ? -1 : 1, y: this.bb.height - this.options.padding + this.jitter(10) });
 
         }
 

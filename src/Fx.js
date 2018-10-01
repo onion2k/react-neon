@@ -21,6 +21,12 @@ export default class Fx {
     history = [];
     mouseover = false;
     context = '2d';
+    default = {
+        mouse: false,
+        history: false,
+        click: false,
+        padding: 0
+    }
 
     constructor(options) {
 
@@ -53,11 +59,7 @@ export default class Fx {
         * plus a few options that make adding listeners a bit simpler.
         *
         **/
-        this.options = Object.assign({
-            mouse: false,
-            history: false,
-            click: false
-        }, options);
+        this.options = Object.assign(this.default, options);
 
         /**
         *

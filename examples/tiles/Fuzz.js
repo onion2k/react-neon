@@ -10,7 +10,7 @@ class FuzzTile extends React.Component {
   }
 };
 
-const effect = new fx.Fuzz({ type: "fuzz", size: 30 });
+const effect = new fx.Fuzz({ type: "fuzz", size: 20, padding: 30 });
 effect.listenMouse();
 const Fuzz = withNeon(FuzzTile, effect);
 

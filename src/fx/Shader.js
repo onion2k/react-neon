@@ -22,7 +22,7 @@ export default class Shader extends Fx {
             twgl.resizeCanvasToDisplaySize(this.ctx.canvas);
 
             this.ctx.viewport(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
-            
+
             var uniforms = {
               u_time: time * 0.001,
               u_resolution: [this.ctx.canvas.width, this.ctx.canvas.height]
