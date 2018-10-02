@@ -10,7 +10,7 @@ class NeonTile extends React.Component {
   }
 };
 
-const effect = new fx.Neon({ padding: 30, size: 10 });
+const effect = new fx.Neon({ size: 20 });
 const Neon = withNeon(NeonTile, effect);
 
 class neonTileWrapper extends React.Component {

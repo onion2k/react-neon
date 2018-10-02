@@ -9,6 +9,14 @@ export default class Neon extends Fx {
     saturation = '0%';
     lightness = '50%';
 
+    constructor(options){
+        super(options);
+        if (!options.padding) {
+            this.options.padding = options.size;
+        }
+
+    }
+
     draw() {
         if (this.ctx!==null) {
 
@@ -36,15 +44,18 @@ export default class Neon extends Fx {
                 this.flicker = 0;
             }
 
+
+            const ps = this.options.padding - this.options.size;
+
             const itl = { x: this.options.padding, y: this.options.padding };
             const itr = { x: this.bb.width - this.options.padding, y: this.options.padding };
             const ibl = { x: this.options.padding, y: this.bb.height - this.options.padding };
             const ibr = { x: this.bb.width - this.options.padding, y: this.bb.height - this.options.padding };
 
-            const otl = { x: 0, y: 0 };
-            const otr = { x: this.bb.width, y: 0 };
-            const obl = { x: 0, y: this.bb.height };
-            const obr = { x: this.bb.width, y: this.bb.height };
+            const otl = { x: ps, y: ps };
+            const otr = { x: this.bb.width - ps, y: ps };
+            const obl = { x: ps, y: this.bb.height - ps };
+            const obr = { x: this.bb.width - ps, y: this.bb.height - ps };
 
             const iw = this.bb.width - this.options.padding * 2;
             const ih = this.bb.height - this.options.padding * 2;
@@ -76,29 +87,29 @@ export default class Neon extends Fx {
             this.ctx.fillStyle = g;
             this.ctx.fillRect(ibl.x, ibl.y, iw, oh);
 
-            g = this.ctx.createRadialGradient(itl.x, itl.y, 0, itl.x, itl.y, this.options.padding);
+            g = this.ctx.createRadialGradient(itl.x, itl.y, 0, itl.x, itl.y, this.options.size);
             g.addColorStop(0, 'hsla('+color+','+saturation+','+lightness+',1)');
             g.addColorStop(1, 'hsla('+color+','+saturation+','+lightness+',0)');
             this.ctx.fillStyle = g;
-            this.ctx.fillRect(otl.x, otl.y, this.options.padding, this.options.padding);
+            this.ctx.fillRect(otl.x, otl.y, this.options.size, this.options.size);
 
-            g = this.ctx.createRadialGradient(itr.x, itr.y, 0, itr.x, itr.y, this.options.padding);
+            g = this.ctx.createRadialGradient(itr.x, itr.y, 0, itr.x, itr.y, this.options.size);
             g.addColorStop(0, 'hsla('+color+','+saturation+','+lightness+',1)');
             g.addColorStop(1, 'hsla('+color+','+saturation+','+lightness+',0)');
             this.ctx.fillStyle = g;
-            this.ctx.fillRect(itr.x, otr.y, this.options.padding, this.options.padding);
+            this.ctx.fillRect(itr.x, otr.y, this.options.size, this.options.size);
 
-            g = this.ctx.createRadialGradient(ibl.x, ibl.y, 0, ibl.x, ibl.y, this.options.padding);
+            g = this.ctx.createRadialGradient(ibl.x, ibl.y, 0, ibl.x, ibl.y, this.options.size);
             g.addColorStop(0, 'hsla('+color+','+saturation+','+lightness+',1)');
             g.addColorStop(1, 'hsla('+color+','+saturation+','+lightness+',0)');
             this.ctx.fillStyle = g;
-            this.ctx.fillRect(obl.x, ibl.y, this.options.padding, this.options.padding);
+            this.ctx.fillRect(obl.x, ibl.y, this.options.size, this.options.size);
 
-            g = this.ctx.createRadialGradient(ibr.x, ibr.y, 0, ibr.x, ibr.y, this.options.padding);
+            g = this.ctx.createRadialGradient(ibr.x, ibr.y, 0, ibr.x, ibr.y, this.options.size);
             g.addColorStop(0, 'hsla('+color+','+saturation+','+lightness+',1)');
             g.addColorStop(1, 'hsla('+color+','+saturation+','+lightness+',0)');
             this.ctx.fillStyle = g;
-            this.ctx.fillRect(ibr.x, ibr.y, this.options.padding, this.options.padding);
+            this.ctx.fillRect(ibr.x, ibr.y, this.options.size, this.options.size);
 
             this.ctx.clearRect(this.options.padding, this.options.padding, this.bb.width - this.options.padding * 2, this.bb.height - this.options.padding * 2);
 
