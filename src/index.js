@@ -75,9 +75,14 @@ const withNeon = (NeonComponent, effect) => {
             *
             **/
             const bb = c[0].target.getBoundingClientRect();
-
             let { top, left, width, height } = bb;
 
+            /**
+            *
+            * If the page is reloaded the scroll position is retained, which breaks positioning. Add the starting
+            * scroll position to the left and top to fix.
+            *
+            **/
             left += window.scrollX;
             top += window.scrollY;
 
