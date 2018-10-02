@@ -145,7 +145,7 @@ export default class Fx {
 
         if (this.options.mouse === true) {
             el.addEventListener('mousemove', (e) => {
-                this.mouse = [e.x - this.bb.left, e.y - this.bb.top];
+                this.mouse = [e.x - this.bb.left + e.view.scrollX, e.y - this.bb.top + e.view.scrollY];
             });
             el.addEventListener('mouseenter', (e) => {
                 this.mouseover = true;
@@ -157,13 +157,13 @@ export default class Fx {
 
         if (this.options.history === true) {
             el.addEventListener('mousemove', (e) => {
-                this.history.push([e.x - this.bb.left, e.y - this.bb.top, Math.random(), Math.random(), 50 + Math.random() * 100]);
+                this.history.push([e.x - this.bb.left + e.view.scrollY, e.y - this.bb.top + e.view.scrollY, Math.random(), Math.random(), 50 + Math.random() * 100]);
             })
         }
 
         if (this.options.clicks === true) {
             el.addEventListener('click', (e) => {
-                this.clicks.push([e.x - this.bb.left, e.y - this.bb.top]);
+                this.clicks.push([e.x - this.bb.left + e.view.scrollX, e.y - this.bb.top + e.view.scrollY]);
             })
         }
 

@@ -101,7 +101,7 @@ export default class Particles extends Fx {
         el.addEventListener('mousemove', (e) => {
             for (let x=0; x< this.particleCount; x++) {
                 this.particles.push(
-                    [e.x - this.bb.left, e.y - this.bb.top, Math.random(), Math.random(), 50 + Math.random() * 100]
+                    [e.x - this.bb.left + e.view.scrollX, e.y - this.bb.top + e.view.scrollY, Math.random(), Math.random(), 50 + Math.random() * 100]
                 );                    
             }
         })
@@ -114,7 +114,7 @@ export default class Particles extends Fx {
         el.addEventListener('click', (e) => {
             for (let x=0; x< this.particleCount*4; x++) {
                 this.particles.push(
-                    [e.x - this.bb.left, e.y - this.bb.top, Math.random(), Math.random(), 50 + Math.random() * 100]
+                    [e.x - this.bb.left + e.view.scrollX, e.y - this.bb.top + e.view.scrollY, Math.random(), Math.random(), 50 + Math.random() * 100]
                 );                    
             }
         })

@@ -42,13 +42,18 @@ export default class Sparks extends Fx {
         el.addEventListener('mousemove', (e) => {
 
             const a = {
-                x: e.x - this.bb.left,
-                y: e.y - this.bb.top,
+                x: e.x - this.bb.left + e.view.scrollX,
+                y: e.y - this.bb.top + e.view.scrollY,
                 width: 1,
                 height: 1
             }
 
-            const b = this.childPositions[0];
+            const b = {
+                x: this.childPositions[0].x,
+                y: this.childPositions[0].y,
+                width: this.childPositions[0].width,
+                height: this.childPositions[0].height
+            };
 
             const spark = (a.x < b.x + b.width &&
                 a.x + a.width > b.x &&
@@ -59,12 +64,12 @@ export default class Sparks extends Fx {
 
                 this.sparkState = spark;
 
-                let a = Math.atan2(e.movementX, e.movementY);
-                if (a < 0) { a += 2 * Math.PI }
+                let m = Math.atan2(e.movementX, e.movementY);
+                if (m < 0) { m += 2 * Math.PI }
 
                 for (let x=0; x< this.particleCount; x++) {
                     this.particles.push(
-                        [e.x - this.bb.left, e.y - this.bb.top, 2 * (Math.sin(a) + (-0.5 + Math.random())), 2* (Math.cos(a) + (-0.5 + Math.random())), Math.random() * 100]
+                        [a.x, a.y, 2 * (Math.sin(m) + (-0.5 + Math.random())), 2* (Math.cos(m) + (-0.5 + Math.random())), Math.random() * 100]
                     );                    
                 }
 
