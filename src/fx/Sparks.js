@@ -2,15 +2,9 @@ import Fx from "../Fx";
 
 export default class Sparks extends Fx {
 
-    constructor(){
-        super();
-
-        this.particles = [];
-        this.particleCount = 40;
-
-        this.sparkState = false;
-
-    }
+    particles = [];
+    particleCount = 40;
+    sparkState = false;
 
     draw() {
         if (this.ctx!==null) {

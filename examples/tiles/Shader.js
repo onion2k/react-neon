@@ -30,7 +30,7 @@ const fs = `
       vec2 uv = gl_FragCoord.xy / u_resolution;
       uv = uv + vec2(0.5 - cos(uv.y * 8.0), 2.0) * (sin(u_time) * 0.05);
       float cb = floor(uv.x*25.) + floor(uv.y*25.);
-      gl_FragColor = vec4(1.0, 0.0, 0.0, 0.5 * mod(cb, 2.0));
+      gl_FragColor = vec4(1.0, 0.0, 0.0, 0.15 * mod(cb, 2.0));
   }
 `
 

@@ -12,6 +12,8 @@ export default class Fuzz extends Fx {
 
     init() {
 
+        this.hair = [];
+
         const w = this.bb.width - this.padding * 2;
         const h = this.bb.height - this.padding * 2;
 
