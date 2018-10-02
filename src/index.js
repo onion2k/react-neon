@@ -75,7 +75,11 @@ const withNeon = (NeonComponent, effect) => {
             *
             **/
             const bb = c[0].target.getBoundingClientRect();
+
             let { top, left, width, height } = bb;
+
+            left += window.scrollX;
+            top += window.scrollY;
 
             /**
             *

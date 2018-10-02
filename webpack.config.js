@@ -2,9 +2,9 @@ const path = require('path');
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-const htmlWebpackPlugin = new HtmlWebpackPlugin({
+const examplesPage = new HtmlWebpackPlugin({
     template: path.join(__dirname, "examples/index.html"),
-    filename: "./index.html"
+    filename: "index.html"
 });
 
 module.exports = {
@@ -22,7 +22,9 @@ module.exports = {
             }
         ]
     },
-    plugins: [htmlWebpackPlugin],
+    plugins: [
+        examplesPage
+    ],
     resolve: {
         extensions: [".js", ".jsx"]
     },
