@@ -17,6 +17,14 @@ import "./index.css";
 
 const App = () => (
     <React.Fragment>
+        <Particles />
+        <Light />
+        <Snow />
+        <Torch />
+        <Bokeh />
+        <Neon />
+        <Sparks />
+        <Shader />
         <Fuzz />
     </React.Fragment>
 );
