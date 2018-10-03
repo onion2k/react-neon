@@ -26,6 +26,7 @@ export default class Fx {
         mouse: false,
         history: false,
         click: false,
+        intersection: false,
         padding: 0
     }
 
@@ -124,6 +125,10 @@ export default class Fx {
         // override this with a draw function
     }
 
+    intersect(c) {
+
+    }
+
     /**
     *
     * Cancel stops the requestAnimationFrame callback on a resize so it isn't run twice.
@@ -193,13 +198,17 @@ export default class Fx {
         return this;
     }
 
+    listenIntersection() {
+        // attach scroll position listener   
+        this.options.intersection = true;
+        return this;
+    }
     /**
     *
     * TODO: We'll need to listen for the scroll position eventually.
     *
     **/
     listenScrollPosition() {
-
         return this;
     }
 }

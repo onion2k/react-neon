@@ -34,6 +34,7 @@ const withNeon = (NeonComponent, effect) => {
         *
         **/
         resize = this.resize.bind(this);
+        intersect = this.intersect.bind(this);
 
         constructor(props) {
             super(props);
@@ -52,6 +53,15 @@ const withNeon = (NeonComponent, effect) => {
             *
             **/
             this.ro = new window.ResizeObserver(this.resize);
+        }
+
+        /**
+        *
+        * The intersect callback takes a parameter, c, that contains the current component element (in an array).
+        *
+        **/
+        intersect(c){
+            this.fx.intersect(c);
         }
 
         /**
@@ -156,8 +166,24 @@ const withNeon = (NeonComponent, effect) => {
         *
         **/
         componentDidMount(){
-            this.fx.listeners(ReactDOM.findDOMNode(this.componentref.current));
-            this.ro.observe(ReactDOM.findDOMNode(this.componentref.current));
+            const componentCurrentDOMEl = ReactDOM.findDOMNode(this.componentref.current);
+            this.fx.listeners(componentCurrentDOMEl);
+            this.ro.observe(componentCurrentDOMEl);
+            if (this.fx.options.intersection) {
+                console.log("Adding intersect");
+                let thresholds = [];
+                let numSteps = 50;
+                for (let i=1.0; i<=numSteps; i++) {
+                    let ratio = i/numSteps;
+                    thresholds.push(ratio);
+                }
+                thresholds.push(0);
+                const options = {
+                    threshold: thresholds
+                }
+                this.io = new window.IntersectionObserver(this.intersect, options);
+                this.io.observe(componentCurrentDOMEl);
+            }
         }
 
         /**

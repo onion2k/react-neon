@@ -11,6 +11,7 @@ class NeonTile extends React.Component {
 };
 
 const effect = new fx.Neon({ size: 20 });
+effect.listenIntersection();
 const Neon = withNeon(NeonTile, effect);
 
 class neonTileWrapper extends React.Component {

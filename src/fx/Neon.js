@@ -8,6 +8,7 @@ export default class Neon extends Fx {
     color = 0;
     saturation = '0%';
     lightness = '50%';
+    onoff = true;
 
     constructor(options){
         super(options);
@@ -15,6 +16,14 @@ export default class Neon extends Fx {
             this.options.padding = options.size;
         }
 
+    }
+
+    intersect(c){
+        if (c[0].intersectionRatio === 1) {
+            this.onoff = true;
+        } else {
+            this.onoff = false;
+        }
     }
 
     draw() {
@@ -27,21 +36,25 @@ export default class Neon extends Fx {
             let saturation = this.saturation;
             let lightness = this.lightness;
 
-            if (this.flicker++ === this.randFlicker) {
+            if (this.onoff) {
+                if (this.flicker++ > this.randFlicker) {
 
-                if (this.saturation==='100%') {
-                    this.color = 0;
-                    this.saturation = '0%';
-                    this.lightness = '20%';
-                    this.randFlicker = Math.floor(Math.random() * 30);
-                } else {
-                    this.color = 0;
-                    this.saturation = '100%';
-                    this.lightness = '50%';
-                    this.randFlicker = Math.floor(Math.random() * 400);
+                    if (this.saturation==='100%') {
+                        this.saturation = '0%';
+                        this.lightness = '20%';
+                        this.randFlicker = Math.floor(Math.random() * 30);
+                    } else {
+                        this.saturation = '100%';
+                        this.lightness = '50%';
+                        this.randFlicker = Math.floor(Math.random() * 400);
+                    }
+    
+                    this.flicker = 0;
                 }
-
-                this.flicker = 0;
+    
+            } else {
+                this.saturation = '0%';
+                this.lightness = '20%';
             }
 
 
