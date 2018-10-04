@@ -169,8 +169,7 @@ const withNeon = (NeonComponent, effect) => {
             const componentCurrentDOMEl = ReactDOM.findDOMNode(this.componentref.current);
             this.fx.listeners(componentCurrentDOMEl);
             this.ro.observe(componentCurrentDOMEl);
-            if (this.fx.options.intersection) {
-                console.log("Adding intersect");
+            if (this.fx.options.obsIntersection) {
                 let thresholds = [];
                 let numSteps = 50;
                 for (let i=1.0; i<=numSteps; i++) {

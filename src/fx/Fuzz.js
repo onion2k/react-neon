@@ -5,6 +5,7 @@ export default class Fuzz extends Fx {
     hair = [];
     length = this.options.size;
     maxActive = 500;
+    scrollPos = { dx:0, dy: 0, x:0, y: 0 }
 
     jitter(value) {
         return (Math.random() * value) - (value / 2);
@@ -29,6 +30,21 @@ export default class Fuzz extends Fx {
 
         }
 
+    }
+
+    scroll(e) {
+        this.scrollPos = { dx: this.scrollPos.x - window.scrollX, dy: this.scrollPos.y - window.scrollY, x: window.scrollX, y: window.scrollY };
+        
+        let s = 0;
+        if (this.scrollPos.dy > 0) {
+            s = (this.scrollPos.dy / 100);
+        } else {
+            s = this.scrollPos.dy / 200;
+        }
+        
+        this.hair.forEach((m, i)=>{
+            m.v += s;
+        });
     }
 
     draw() {

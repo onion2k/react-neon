@@ -19,6 +19,7 @@ export default class Neon extends Fx {
     }
 
     intersect(c){
+        console.log(this.onoff)
         if (c[0].intersectionRatio === 1) {
             this.onoff = true;
             this.randFlicker = 0;

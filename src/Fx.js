@@ -23,10 +23,11 @@ export default class Fx {
     context = '2d';
 
     _default = {
-        mouse: false,
-        history: false,
-        click: false,
-        intersection: false,
+        obsMouse: false,
+        obsHistory: false,
+        obsClick: false,
+        obsIntersection: false,
+        obsScroll: false,
         padding: 0
     }
 
@@ -125,7 +126,21 @@ export default class Fx {
         // override this with a draw function
     }
 
+    /**
+    *
+    * Override intersect() with a function that fires when the component intersection changes
+    *
+    **/
     intersect(c) {
+
+    }
+
+    /**
+    *
+    * Override scroll() with a function that fires when the window scrolls
+    *
+    **/
+    scroll(e) {
 
     }
 
@@ -148,7 +163,7 @@ export default class Fx {
     **/
     listeners(el) {
 
-        if (this.options.mouse === true) {
+        if (this.options.obsMouse === true) {
             el.addEventListener('mousemove', (e) => {
                 this.mouse = [e.x - this.bb.left + e.view.scrollX, e.y - this.bb.top + e.view.scrollY];
             });
@@ -160,18 +175,24 @@ export default class Fx {
             });
         }
 
-        if (this.options.history === true) {
+        if (this.options.obsHistory === true) {
             el.addEventListener('mousemove', (e) => {
                 this.history.push([e.x - this.bb.left + e.view.scrollY, e.y - this.bb.top + e.view.scrollY, Math.random(), Math.random(), 50 + Math.random() * 100]);
-            })
+            }, { passive: true })
         }
 
-        if (this.options.clicks === true) {
+        if (this.options.obsClick === true) {
             el.addEventListener('click', (e) => {
                 this.clicks.push([e.x - this.bb.left + e.view.scrollX, e.y - this.bb.top + e.view.scrollY]);
             })
         }
 
+        if (this.options.obsScroll === true) {
+            window.addEventListener('scroll', (e) => {
+                // this.history.push([e.x - this.bb.left + e.view.scrollY, e.y - this.bb.top + e.view.scrollY, Math.random(), Math.random(), 50 + Math.random() * 100]);
+                this.scroll(e);
+            })
+        }
     }
     
     /**
@@ -182,34 +203,30 @@ export default class Fx {
     **/
     listenMouse(el) {
         // attach mouse listener
-        this.options.mouse = true;
+        this.options.obsMouse = true;
         return this;
     }
 
     listenMouseHistory() {
         // attach position history listener   
-        this.options.history = true;
+        this.options.obsHistory = true;
         return this;
     }
 
     listenClick() {
         // attach scroll position listener   
-        this.options.clicks = true;
+        this.options.obsClick = true;
         return this;
     }
 
     listenIntersection() {
-        // attach scroll position listener   
-        this.options.intersection = true;
+        this.options.obsIntersection = true;
         return this;
     }
-    /**
-    *
-    * TODO: We'll need to listen for the scroll position eventually.
-    *
-    **/
-    listenScrollPosition() {
-        return this;
-    }
-}
 
+    listenScroll() {
+        this.options.obsScroll = true;
+        return this;
+    }
+
+}
