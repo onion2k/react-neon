@@ -1,5 +1,7 @@
 import Fx from "../Fx";
 
+const TAU = Math.PI * 2;
+
 /**
 *
 * Basic particles radiating from the user's mouse, with more when the user clicks.
@@ -19,6 +21,7 @@ export default class ParticlesToon extends Fx {
         **/
         this.particles = [];
         this.particleCount = 4;
+        this.particlesMax = 100;
         this.c = 0;
 
     }
@@ -42,6 +45,7 @@ export default class ParticlesToon extends Fx {
             if (this.particles.length) {
 
                 this.ctx.globalCompositeOperation = "screen";
+                this.ctx.strokeStyle = 'hsla(0,100%,0%,1)';
 
                 /**
                 *
@@ -67,7 +71,7 @@ export default class ParticlesToon extends Fx {
                         * fades away.
                         *
                         **/
-                        this.ctx.fillStyle = 'hsla('+m[5]+',100%,50%,'+(m[4] / 100)+')';
+                        this.ctx.fillStyle = 'hsla('+m[5]+',100%,50%,0.25)';
 
                         /**
                          *
@@ -75,16 +79,17 @@ export default class ParticlesToon extends Fx {
                          *
                          **/
                         this.ctx.beginPath();
-                        this.ctx.arc(m[0], m[1], (m[4] / 10) + 1, 0, 2 * Math.PI);
+                        this.ctx.arc(m[0], m[1], (m[4] / 10) + 1, 0, TAU);
                         this.ctx.fill();
+                        this.ctx.stroke();
 
                         /**
                          *
                          * Move the particle based on it's x and y velocity values
                          *
                          **/
-                        m[0] +=  Math.sin( (Math.PI * 2) * m[2] );
-                        m[1] +=  Math.cos( (Math.PI * 2) * m[3] );
+                        m[0] +=  Math.sin( TAU * m[2] );
+                        m[1] +=  Math.cos( TAU * m[3] );
                     }
 
                 });
@@ -105,7 +110,12 @@ export default class ParticlesToon extends Fx {
         *
         **/
         el.addEventListener('mousemove', (e) => {
-            for (let x=0; x< this.particleCount; x++) {
+
+            if (this.particles.length > this.particlesMax) {
+                this.particles.splice(0, this.particlesMax - this.particleCount);
+            }
+
+            for (let x=0; x < this.particleCount; x++) {
                 this.c += 0.1;
                 this.particles.push(
                     [
@@ -113,7 +123,7 @@ export default class ParticlesToon extends Fx {
                         e.y - this.bb.top + e.view.scrollY,
                         Math.random(),
                         Math.random(),
-                        50 + Math.random() * 100,
+                        100,
                         this.c % 255,
                     ]
                 );                    
@@ -128,7 +138,7 @@ export default class ParticlesToon extends Fx {
         el.addEventListener('click', (e) => {
             for (let x=0; x< this.particleCount*4; x++) {
                 this.particles.push(
-                    [e.x - this.bb.left + e.view.scrollX, e.y - this.bb.top + e.view.scrollY, Math.random(), Math.random(), 50 + Math.random() * 100]
+                    [e.x - this.bb.left + e.view.scrollX, e.y - this.bb.top + e.view.scrollY, Math.random(), Math.random(), 25 + Math.random() * 250]
                 );                    
             }
         })
