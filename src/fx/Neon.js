@@ -21,6 +21,7 @@ export default class Neon extends Fx {
     intersect(c){
         if (c[0].intersectionRatio === 1) {
             this.onoff = true;
+            this.randFlicker = 0;
         } else {
             this.onoff = false;
         }
@@ -46,7 +47,7 @@ export default class Neon extends Fx {
                     } else {
                         this.saturation = '100%';
                         this.lightness = '50%';
-                        this.randFlicker = Math.floor(Math.random() * 400);
+                        this.randFlicker = Math.floor(Math.random() * 200);
                     }
     
                     this.flicker = 0;
@@ -68,7 +69,7 @@ export default class Neon extends Fx {
             const otl = { x: ps, y: ps };
             const otr = { x: this.bb.width - ps, y: ps };
             const obl = { x: ps, y: this.bb.height - ps };
-            const obr = { x: this.bb.width - ps, y: this.bb.height - ps };
+            // const obr = { x: this.bb.width - ps, y: this.bb.height - ps };
 
             const iw = this.bb.width - this.options.padding * 2;
             const ih = this.bb.height - this.options.padding * 2;
