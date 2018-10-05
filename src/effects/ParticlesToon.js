@@ -111,13 +111,9 @@ export default class ParticlesToon extends Fx {
         **/
         el.addEventListener('mousemove', (e) => {
 
-            if (this.particles.length > this.particlesMax) {
-                this.particles.splice(0, this.particlesMax - this.particleCount);
-            }
-
             for (let x=0; x < this.particleCount; x++) {
                 this.c += 0.1;
-                this.particles.push(
+                this.particles.unshift(
                     [
                         e.x - this.bb.left + e.view.scrollX,
                         e.y - this.bb.top + e.view.scrollY,
@@ -128,6 +124,11 @@ export default class ParticlesToon extends Fx {
                     ]
                 );                    
             }
+
+            if (this.particles.length > this.particlesMax) {
+                this.particles = this.particles.slice(0, this.particlesMax - this.particleCount);
+            }
+
         })
 
         /**
