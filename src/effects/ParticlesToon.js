@@ -21,7 +21,7 @@ export default class ParticlesToon extends Fx {
         **/
         this.particles = [];
         this.particleCount = 4;
-        this.particlesMax = 100;
+        this.particlesMax = 200;
         this.c = 0;
 
     }
@@ -44,7 +44,8 @@ export default class ParticlesToon extends Fx {
             **/
             if (this.particles.length) {
 
-                this.ctx.globalCompositeOperation = "screen";
+                this.ctx.globalCompositeOperation = "lighter";
+                this.ctx.lineWidth = 2;
                 this.ctx.strokeStyle = 'hsla(0,100%,0%,1)';
 
                 /**
@@ -71,7 +72,7 @@ export default class ParticlesToon extends Fx {
                         * fades away.
                         *
                         **/
-                        this.ctx.fillStyle = 'hsla('+m[5]+',100%,50%,0.25)';
+                        this.ctx.fillStyle = 'hsla('+m[5]+',100%,50%,1)';
 
                         /**
                          *
