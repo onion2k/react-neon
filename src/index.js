@@ -94,7 +94,7 @@ const withNeon = (NeonComponent, effect) => {
             *
             **/
             left += window.scrollX;
-            top += window.scrollY;
+            top  += window.scrollY;
 
             /**
             *
@@ -192,11 +192,14 @@ const withNeon = (NeonComponent, effect) => {
         *
         **/
         render() {
+
+            // How to do this through a portal?
+
             return (
-                <React.Fragment>
+                <div>
                     <NeonComponent ref={this.componentref} />
                     <canvas ref={this.canvasref} style={{ display: 'none' }} />
-                </React.Fragment>
+                </div>
             )
         }
     }
