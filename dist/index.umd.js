@@ -1319,6 +1319,7 @@
 
   exports.default = withNeon;
   exports.fx = fx;
+  exports.Fx = Fx;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 

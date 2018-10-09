@@ -34,6 +34,7 @@ const fx = {
   Torch: _fx_Torch
 };
 Object.freeze(fx);
+import Fx from "./Fx";
 /**
 *
 * The withNeon HoC wrapper.
@@ -256,4 +257,4 @@ const withNeon = (NeonComponent, effect) => {
 **/
 
 
-export { withNeon as default, fx };
+export { withNeon as default, fx, Fx };
