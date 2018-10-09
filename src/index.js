@@ -9,6 +9,8 @@ import ReactDOM from 'react-dom';
 **/
 import * as fx from "./fx/*.js";
 
+import Fx from "./Fx";
+
 /**
 *
 * The withNeon HoC wrapper.
@@ -212,4 +214,4 @@ const withNeon = (NeonComponent, effect) => {
 * the withNeon function on it's own.
 *
 **/
-export { withNeon as default, fx };
+export { withNeon as default, fx, Fx };
