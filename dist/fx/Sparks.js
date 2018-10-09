@@ -1,10 +1,15 @@
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 import Fx from "../Fx";
 export default class Sparks extends Fx {
-  constructor() {
-    super();
-    this.particles = [];
-    this.particleCount = 40;
-    this.sparkState = false;
+  constructor(...args) {
+    super(...args);
+
+    _defineProperty(this, "particles", []);
+
+    _defineProperty(this, "particleCount", 40);
+
+    _defineProperty(this, "sparkState", false);
   }
 
   draw() {
@@ -37,24 +42,29 @@ export default class Sparks extends Fx {
   listeners(el) {
     el.addEventListener('mousemove', e => {
       const a = {
-        x: e.x - this.bb.left,
-        y: e.y - this.bb.top,
+        x: e.x - this.bb.left + e.view.scrollX,
+        y: e.y - this.bb.top + e.view.scrollY,
         width: 1,
         height: 1
       };
-      const b = this.childPositions[0];
+      const b = {
+        x: this.childPositions[0].x,
+        y: this.childPositions[0].y,
+        width: this.childPositions[0].width,
+        height: this.childPositions[0].height
+      };
       const spark = a.x < b.x + b.width && a.x + a.width > b.x && a.y < b.y + b.height && a.height + a.y > b.y;
 
       if (spark !== this.sparkState) {
         this.sparkState = spark;
-        let a = Math.atan2(e.movementX, e.movementY);
+        let m = Math.atan2(e.movementX, e.movementY);
 
-        if (a < 0) {
-          a += 2 * Math.PI;
+        if (m < 0) {
+          m += 2 * Math.PI;
         }
 
         for (let x = 0; x < this.particleCount; x++) {
-          this.particles.push([e.x - this.bb.left, e.y - this.bb.top, 2 * (Math.sin(a) + (-0.5 + Math.random())), 2 * (Math.cos(a) + (-0.5 + Math.random())), Math.random() * 100]);
+          this.particles.push([a.x, a.y, 2 * (Math.sin(m) + (-0.5 + Math.random())), 2 * (Math.cos(m) + (-0.5 + Math.random())), Math.random() * 100]);
         }
       }
     });

@@ -5,13 +5,18 @@ export default class Fuzz extends Fx {
   constructor(...args) {
     super(...args);
 
-    _defineProperty(this, "padding", this.options.size);
-
     _defineProperty(this, "hair", []);
 
-    _defineProperty(this, "length", this.options.size * .8);
+    _defineProperty(this, "length", this.options.size);
 
     _defineProperty(this, "maxActive", 500);
+
+    _defineProperty(this, "scrollPos", {
+      dx: 0,
+      dy: 0,
+      x: 0,
+      y: 0
+    });
   }
 
   jitter(value) {
@@ -19,37 +24,58 @@ export default class Fuzz extends Fx {
   }
 
   init() {
+    this.hair = [];
     const w = this.bb.width - this.padding * 2;
     const h = this.bb.height - this.padding * 2;
 
     for (var i = 0; i < this.maxActive / 2; i++) {
-      let y = this.padding + Math.floor(Math.random() * (this.bb.height - this.padding * 2));
+      let y = this.options.padding + Math.floor(Math.random() * (this.bb.height - this.options.padding * 2));
       this.hair.push({
         v: 0,
-        x: this.padding + this.jitter(-10),
+        x: this.options.padding + this.jitter(-10),
         x2: -1,
         y: y
       });
       this.hair.push({
         v: 0,
-        x: this.bb.width - this.padding + this.jitter(10),
+        x: this.bb.width - this.options.padding + this.jitter(10),
         x2: +1,
         y: y
       });
-      let x = this.padding + Math.floor(Math.random() * (this.bb.width - this.padding * 2));
+      let x = this.options.padding + Math.floor(Math.random() * (this.bb.width - this.options.padding * 2));
       this.hair.push({
         v: 0,
         x: x,
         x2: x < this.bb.width / 2 ? -1 : 1,
-        y: this.padding + this.jitter(-10)
+        y: this.options.padding + this.jitter(-10)
       });
       this.hair.push({
         v: 0,
         x: x,
         x2: x < this.bb.width / 2 ? -1 : 1,
-        y: this.bb.height - this.padding + this.jitter(10)
+        y: this.bb.height - this.options.padding + this.jitter(10)
       });
     }
+  }
+
+  scroll(e) {
+    this.scrollPos = {
+      dx: this.scrollPos.x - window.scrollX,
+      dy: this.scrollPos.y - window.scrollY,
+      x: window.scrollX,
+      y: window.scrollY
+    };
+    let s = 0;
+
+    if (this.scrollPos.dy > 0) {
+      s = this.scrollPos.dy / 100;
+    } else {
+      s = this.scrollPos.dy / 200;
+    }
+
+    this.hair.forEach((m, i) => {
+      m.v += s;
+    });
   }
 
   draw() {

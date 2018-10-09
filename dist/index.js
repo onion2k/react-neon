@@ -69,6 +69,8 @@ const withNeon = (NeonComponent, effect) => {
 
       _defineProperty(this, "resize", this.resize.bind(this));
 
+      _defineProperty(this, "intersect", this.intersect.bind(this));
+
       this.fx = effect;
       /**
       *
@@ -78,6 +80,16 @@ const withNeon = (NeonComponent, effect) => {
       **/
 
       this.ro = new window.ResizeObserver(this.resize);
+    }
+    /**
+    *
+    * The intersect callback takes a parameter, c, that contains the current component element (in an array).
+    *
+    **/
+
+
+    intersect(c) {
+      this.fx.intersect(c);
     }
     /**
     *
@@ -109,17 +121,26 @@ const withNeon = (NeonComponent, effect) => {
       } = bb;
       /**
       *
+      * If the page is reloaded the scroll position is retained, which breaks positioning. Add the starting
+      * scroll position to the left and top to fix.
+      *
+      **/
+
+      left += window.scrollX;
+      top += window.scrollY;
+      /**
+      *
       * If the effect needs to draw outside of the region defined by the component it'll have a padding
       * value set. We double the padding (so it's equal on all sides) and then subtract the padding from
       * the top and left to move the origin to the right position.
       *
       **/
 
-      if (this.fx.padding > 0) {
-        width += this.fx.padding * 2;
-        height += this.fx.padding * 2;
-        top -= this.fx.padding;
-        left -= this.fx.padding;
+      if (this.fx.options.padding > 0) {
+        width += this.fx.options.padding * 2;
+        height += this.fx.options.padding * 2;
+        top -= this.fx.options.padding;
+        left -= this.fx.options.padding;
       }
       /**
       *
@@ -184,8 +205,26 @@ const withNeon = (NeonComponent, effect) => {
 
 
     componentDidMount() {
-      this.fx.listeners(ReactDOM.findDOMNode(this.componentref.current));
-      this.ro.observe(ReactDOM.findDOMNode(this.componentref.current));
+      const componentCurrentDOMEl = ReactDOM.findDOMNode(this.componentref.current);
+      this.fx.listeners(componentCurrentDOMEl);
+      this.ro.observe(componentCurrentDOMEl);
+
+      if (this.fx.options.obsIntersection) {
+        let thresholds = [];
+        let numSteps = 50;
+
+        for (let i = 1.0; i <= numSteps; i++) {
+          let ratio = i / numSteps;
+          thresholds.push(ratio);
+        }
+
+        thresholds.push(0);
+        const options = {
+          threshold: thresholds
+        };
+        this.io = new window.IntersectionObserver(this.intersect, options);
+        this.io.observe(componentCurrentDOMEl);
+      }
     }
     /**
     *
@@ -196,7 +235,8 @@ const withNeon = (NeonComponent, effect) => {
 
 
     render() {
-      return React.createElement(React.Fragment, null, React.createElement(NeonComponent, {
+      // How to do this through a portal?
+      return React.createElement("div", null, React.createElement(NeonComponent, {
         ref: this.componentref
       }), React.createElement("canvas", {
         ref: this.canvasref,

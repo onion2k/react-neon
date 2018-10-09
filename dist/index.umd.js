@@ -48,6 +48,15 @@
 
       _defineProperty(this, "context", '2d');
 
+      _defineProperty(this, "_default", {
+        obsMouse: false,
+        obsHistory: false,
+        obsClick: false,
+        obsIntersection: false,
+        obsScroll: false,
+        padding: 0
+      });
+
       /**
       *
       * raf is the requestAnimationFrame id for the current frame. It's needed to cancel
@@ -77,11 +86,7 @@
       *
       **/
 
-      this.options = Object.assign({
-        mouse: false,
-        history: false,
-        click: false
-      }, options);
+      this.options = Object.assign(this._default, this.default, options);
       /**
       *
       * draw needs to be bound to the current object instance context for `this` to work.
@@ -139,6 +144,22 @@
 
     /**
     *
+    * Override intersect() with a function that fires when the component intersection changes
+    *
+    **/
+
+
+    intersect(c) {}
+    /**
+    *
+    * Override scroll() with a function that fires when the window scrolls
+    *
+    **/
+
+
+    scroll(e) {}
+    /**
+    *
     * Cancel stops the requestAnimationFrame callback on a resize so it isn't run twice.
     * Override this if you need to do something before the draw() call runs.
     *
@@ -158,9 +179,9 @@
 
 
     listeners(el) {
-      if (this.options.mouse === true) {
+      if (this.options.obsMouse === true) {
         el.addEventListener('mousemove', e => {
-          this.mouse = [e.x - this.bb.left, e.y - this.bb.top];
+          this.mouse = [e.x - this.bb.left + e.view.scrollX, e.y - this.bb.top + e.view.scrollY];
         });
         el.addEventListener('mouseenter', e => {
           this.mouseover = true;
@@ -170,15 +191,24 @@
         });
       }
 
-      if (this.options.history === true) {
+      if (this.options.obsHistory === true) {
         el.addEventListener('mousemove', e => {
-          this.history.push([e.x - this.bb.left, e.y - this.bb.top, Math.random(), Math.random(), 50 + Math.random() * 100]);
+          this.history.push([e.x - this.bb.left + e.view.scrollY, e.y - this.bb.top + e.view.scrollY, Math.random(), Math.random(), 50 + Math.random() * 100]);
+        }, {
+          passive: true
         });
       }
 
-      if (this.options.clicks === true) {
+      if (this.options.obsClick === true) {
         el.addEventListener('click', e => {
-          this.clicks.push([e.x - this.bb.left, e.y - this.bb.top]);
+          this.clicks.push([e.x - this.bb.left + e.view.scrollX, e.y - this.bb.top + e.view.scrollY]);
+        });
+      }
+
+      if (this.options.obsScroll === true) {
+        window.addEventListener('scroll', e => {
+          // this.history.push([e.x - this.bb.left + e.view.scrollY, e.y - this.bb.top + e.view.scrollY, Math.random(), Math.random(), 50 + Math.random() * 100]);
+          this.scroll(e);
         });
       }
     }
@@ -192,29 +222,29 @@
 
     listenMouse(el) {
       // attach mouse listener
-      this.options.mouse = true;
+      this.options.obsMouse = true;
       return this;
     }
 
     listenMouseHistory() {
       // attach position history listener   
-      this.options.history = true;
+      this.options.obsHistory = true;
       return this;
     }
 
     listenClick() {
       // attach scroll position listener   
-      this.options.clicks = true;
+      this.options.obsClick = true;
       return this;
     }
-    /**
-    *
-    * TODO: We'll need to listen for the scroll position eventually.
-    *
-    **/
 
+    listenIntersection() {
+      this.options.obsIntersection = true;
+      return this;
+    }
 
-    listenScrollPosition() {
+    listenScroll() {
+      this.options.obsScroll = true;
       return this;
     }
 
@@ -271,13 +301,18 @@
     constructor(...args) {
       super(...args);
 
-      _defineProperty(this, "padding", this.options.size);
-
       _defineProperty(this, "hair", []);
 
-      _defineProperty(this, "length", this.options.size * .8);
+      _defineProperty(this, "length", this.options.size);
 
       _defineProperty(this, "maxActive", 500);
+
+      _defineProperty(this, "scrollPos", {
+        dx: 0,
+        dy: 0,
+        x: 0,
+        y: 0
+      });
     }
 
     jitter(value) {
@@ -285,37 +320,58 @@
     }
 
     init() {
+      this.hair = [];
       const w = this.bb.width - this.padding * 2;
       const h = this.bb.height - this.padding * 2;
 
       for (var i = 0; i < this.maxActive / 2; i++) {
-        let y = this.padding + Math.floor(Math.random() * (this.bb.height - this.padding * 2));
+        let y = this.options.padding + Math.floor(Math.random() * (this.bb.height - this.options.padding * 2));
         this.hair.push({
           v: 0,
-          x: this.padding + this.jitter(-10),
+          x: this.options.padding + this.jitter(-10),
           x2: -1,
           y: y
         });
         this.hair.push({
           v: 0,
-          x: this.bb.width - this.padding + this.jitter(10),
+          x: this.bb.width - this.options.padding + this.jitter(10),
           x2: +1,
           y: y
         });
-        let x = this.padding + Math.floor(Math.random() * (this.bb.width - this.padding * 2));
+        let x = this.options.padding + Math.floor(Math.random() * (this.bb.width - this.options.padding * 2));
         this.hair.push({
           v: 0,
           x: x,
           x2: x < this.bb.width / 2 ? -1 : 1,
-          y: this.padding + this.jitter(-10)
+          y: this.options.padding + this.jitter(-10)
         });
         this.hair.push({
           v: 0,
           x: x,
           x2: x < this.bb.width / 2 ? -1 : 1,
-          y: this.bb.height - this.padding + this.jitter(10)
+          y: this.bb.height - this.options.padding + this.jitter(10)
         });
       }
+    }
+
+    scroll(e) {
+      this.scrollPos = {
+        dx: this.scrollPos.x - window.scrollX,
+        dy: this.scrollPos.y - window.scrollY,
+        x: window.scrollX,
+        y: window.scrollY
+      };
+      let s = 0;
+
+      if (this.scrollPos.dy > 0) {
+        s = this.scrollPos.dy / 100;
+      } else {
+        s = this.scrollPos.dy / 200;
+      }
+
+      this.hair.forEach((m, i) => {
+        m.v += s;
+      });
     }
 
     draw() {
@@ -487,10 +543,8 @@
   }
 
   class Neon extends Fx {
-    constructor(...args) {
-      super(...args);
-
-      _defineProperty(this, "padding", this.options.size);
+    constructor(options) {
+      super(options);
 
       _defineProperty(this, "flicker", 0);
 
@@ -501,6 +555,21 @@
       _defineProperty(this, "saturation", '0%');
 
       _defineProperty(this, "lightness", '50%');
+
+      _defineProperty(this, "onoff", true);
+
+      if (!options.padding) {
+        this.options.padding = options.size;
+      }
+    }
+
+    intersect(c) {
+      if (c[0].intersectionRatio === 1) {
+        this.onoff = true;
+        this.randFlicker = 0;
+      } else {
+        this.onoff = false;
+      }
     }
 
     draw() {
@@ -511,56 +580,57 @@
         let saturation = this.saturation;
         let lightness = this.lightness;
 
-        if (this.flicker++ === this.randFlicker) {
-          if (this.saturation === '100%') {
-            this.color = 0;
-            this.saturation = '0%';
-            this.lightness = '20%';
-            this.randFlicker = Math.floor(Math.random() * 30);
-          } else {
-            this.color = 0;
-            this.saturation = '100%';
-            this.lightness = '50%';
-            this.randFlicker = Math.floor(Math.random() * 400);
-          }
+        if (this.onoff) {
+          if (this.flicker++ > this.randFlicker) {
+            if (this.saturation === '100%') {
+              this.saturation = '0%';
+              this.lightness = '20%';
+              this.randFlicker = Math.floor(Math.random() * 30);
+            } else {
+              this.saturation = '100%';
+              this.lightness = '50%';
+              this.randFlicker = Math.floor(Math.random() * 200);
+            }
 
-          this.flicker = 0;
+            this.flicker = 0;
+          }
+        } else {
+          this.saturation = '0%';
+          this.lightness = '20%';
         }
 
+        const ps = this.options.padding - this.options.size;
         const itl = {
-          x: this.padding,
-          y: this.padding
+          x: this.options.padding,
+          y: this.options.padding
         };
         const itr = {
-          x: this.bb.width - this.padding,
-          y: this.padding
+          x: this.bb.width - this.options.padding,
+          y: this.options.padding
         };
         const ibl = {
-          x: this.padding,
-          y: this.bb.height - this.padding
+          x: this.options.padding,
+          y: this.bb.height - this.options.padding
         };
         const ibr = {
-          x: this.bb.width - this.padding,
-          y: this.bb.height - this.padding
+          x: this.bb.width - this.options.padding,
+          y: this.bb.height - this.options.padding
         };
         const otl = {
-          x: 0,
-          y: 0
+          x: ps,
+          y: ps
         };
         const otr = {
-          x: this.bb.width,
-          y: 0
+          x: this.bb.width - ps,
+          y: ps
         };
         const obl = {
-          x: 0,
-          y: this.bb.height
-        };
-        const obr = {
-          x: this.bb.width,
-          y: this.bb.height
-        };
-        const iw = this.bb.width - this.padding * 2;
-        const ih = this.bb.height - this.padding * 2;
+          x: ps,
+          y: this.bb.height - ps
+        }; // const obr = { x: this.bb.width - ps, y: this.bb.height - ps };
+
+        const iw = this.bb.width - this.options.padding * 2;
+        const ih = this.bb.height - this.options.padding * 2;
         const ow = this.bb.width;
         const oh = this.bb.height;
         let g = this.ctx.createLinearGradient(otl.x, otl.y, itl.x, otl.y);
@@ -583,27 +653,27 @@
         g.addColorStop(1, 'hsla(' + color + ',' + saturation + ',' + lightness + ',0)');
         this.ctx.fillStyle = g;
         this.ctx.fillRect(ibl.x, ibl.y, iw, oh);
-        g = this.ctx.createRadialGradient(itl.x, itl.y, 0, itl.x, itl.y, this.padding);
+        g = this.ctx.createRadialGradient(itl.x, itl.y, 0, itl.x, itl.y, this.options.size);
         g.addColorStop(0, 'hsla(' + color + ',' + saturation + ',' + lightness + ',1)');
         g.addColorStop(1, 'hsla(' + color + ',' + saturation + ',' + lightness + ',0)');
         this.ctx.fillStyle = g;
-        this.ctx.fillRect(otl.x, otl.y, this.padding, this.padding);
-        g = this.ctx.createRadialGradient(itr.x, itr.y, 0, itr.x, itr.y, this.padding);
+        this.ctx.fillRect(otl.x, otl.y, this.options.size, this.options.size);
+        g = this.ctx.createRadialGradient(itr.x, itr.y, 0, itr.x, itr.y, this.options.size);
         g.addColorStop(0, 'hsla(' + color + ',' + saturation + ',' + lightness + ',1)');
         g.addColorStop(1, 'hsla(' + color + ',' + saturation + ',' + lightness + ',0)');
         this.ctx.fillStyle = g;
-        this.ctx.fillRect(itr.x, otr.y, this.padding, this.padding);
-        g = this.ctx.createRadialGradient(ibl.x, ibl.y, 0, ibl.x, ibl.y, this.padding);
+        this.ctx.fillRect(itr.x, otr.y, this.options.size, this.options.size);
+        g = this.ctx.createRadialGradient(ibl.x, ibl.y, 0, ibl.x, ibl.y, this.options.size);
         g.addColorStop(0, 'hsla(' + color + ',' + saturation + ',' + lightness + ',1)');
         g.addColorStop(1, 'hsla(' + color + ',' + saturation + ',' + lightness + ',0)');
         this.ctx.fillStyle = g;
-        this.ctx.fillRect(obl.x, ibl.y, this.padding, this.padding);
-        g = this.ctx.createRadialGradient(ibr.x, ibr.y, 0, ibr.x, ibr.y, this.padding);
+        this.ctx.fillRect(obl.x, ibl.y, this.options.size, this.options.size);
+        g = this.ctx.createRadialGradient(ibr.x, ibr.y, 0, ibr.x, ibr.y, this.options.size);
         g.addColorStop(0, 'hsla(' + color + ',' + saturation + ',' + lightness + ',1)');
         g.addColorStop(1, 'hsla(' + color + ',' + saturation + ',' + lightness + ',0)');
         this.ctx.fillStyle = g;
-        this.ctx.fillRect(ibr.x, ibr.y, this.padding, this.padding);
-        this.ctx.clearRect(this.padding, this.padding, this.bb.width - this.padding * 2, this.bb.height - this.padding * 2);
+        this.ctx.fillRect(ibr.x, ibr.y, this.options.size, this.options.size);
+        this.ctx.clearRect(this.options.padding, this.options.padding, this.bb.width - this.options.padding * 2, this.bb.height - this.options.padding * 2);
       }
 
       this.raf = requestAnimationFrame(this.draw);
@@ -703,7 +773,7 @@
       **/
       el.addEventListener('mousemove', e => {
         for (let x = 0; x < this.particleCount; x++) {
-          this.particles.push([e.x - this.bb.left, e.y - this.bb.top, Math.random(), Math.random(), 50 + Math.random() * 100]);
+          this.particles.push([e.x - this.bb.left + e.view.scrollX, e.y - this.bb.top + e.view.scrollY, Math.random(), Math.random(), 50 + Math.random() * 100]);
         }
       });
       /**
@@ -714,7 +784,7 @@
 
       el.addEventListener('click', e => {
         for (let x = 0; x < this.particleCount * 4; x++) {
-          this.particles.push([e.x - this.bb.left, e.y - this.bb.top, Math.random(), Math.random(), 50 + Math.random() * 100]);
+          this.particles.push([e.x - this.bb.left + e.view.scrollX, e.y - this.bb.top + e.view.scrollY, Math.random(), Math.random(), 50 + Math.random() * 100]);
         }
       });
     }
@@ -794,6 +864,8 @@
 
 
     init() {
+      this.snowflakes = [];
+
       for (var i = 0; i < this.maxActive; i++) {
         var x = Math.floor(Math.random() * this.bb.width);
         var y = Math.floor(Math.random() * this.bb.height);
@@ -888,11 +960,14 @@
   }
 
   class Sparks extends Fx {
-    constructor() {
-      super();
-      this.particles = [];
-      this.particleCount = 40;
-      this.sparkState = false;
+    constructor(...args) {
+      super(...args);
+
+      _defineProperty(this, "particles", []);
+
+      _defineProperty(this, "particleCount", 40);
+
+      _defineProperty(this, "sparkState", false);
     }
 
     draw() {
@@ -925,24 +1000,29 @@
     listeners(el) {
       el.addEventListener('mousemove', e => {
         const a = {
-          x: e.x - this.bb.left,
-          y: e.y - this.bb.top,
+          x: e.x - this.bb.left + e.view.scrollX,
+          y: e.y - this.bb.top + e.view.scrollY,
           width: 1,
           height: 1
         };
-        const b = this.childPositions[0];
+        const b = {
+          x: this.childPositions[0].x,
+          y: this.childPositions[0].y,
+          width: this.childPositions[0].width,
+          height: this.childPositions[0].height
+        };
         const spark = a.x < b.x + b.width && a.x + a.width > b.x && a.y < b.y + b.height && a.height + a.y > b.y;
 
         if (spark !== this.sparkState) {
           this.sparkState = spark;
-          let a = Math.atan2(e.movementX, e.movementY);
+          let m = Math.atan2(e.movementX, e.movementY);
 
-          if (a < 0) {
-            a += 2 * Math.PI;
+          if (m < 0) {
+            m += 2 * Math.PI;
           }
 
           for (let x = 0; x < this.particleCount; x++) {
-            this.particles.push([e.x - this.bb.left, e.y - this.bb.top, 2 * (Math.sin(a) + (-0.5 + Math.random())), 2 * (Math.cos(a) + (-0.5 + Math.random())), Math.random() * 100]);
+            this.particles.push([a.x, a.y, 2 * (Math.sin(m) + (-0.5 + Math.random())), 2 * (Math.cos(m) + (-0.5 + Math.random())), Math.random() * 100]);
           }
         }
       });
@@ -1057,6 +1137,8 @@
 
         _defineProperty(this, "resize", this.resize.bind(this));
 
+        _defineProperty(this, "intersect", this.intersect.bind(this));
+
         this.fx = effect;
         /**
         *
@@ -1066,6 +1148,16 @@
         **/
 
         this.ro = new window.ResizeObserver(this.resize);
+      }
+      /**
+      *
+      * The intersect callback takes a parameter, c, that contains the current component element (in an array).
+      *
+      **/
+
+
+      intersect(c) {
+        this.fx.intersect(c);
       }
       /**
       *
@@ -1097,17 +1189,26 @@
         } = bb;
         /**
         *
+        * If the page is reloaded the scroll position is retained, which breaks positioning. Add the starting
+        * scroll position to the left and top to fix.
+        *
+        **/
+
+        left += window.scrollX;
+        top += window.scrollY;
+        /**
+        *
         * If the effect needs to draw outside of the region defined by the component it'll have a padding
         * value set. We double the padding (so it's equal on all sides) and then subtract the padding from
         * the top and left to move the origin to the right position.
         *
         **/
 
-        if (this.fx.padding > 0) {
-          width += this.fx.padding * 2;
-          height += this.fx.padding * 2;
-          top -= this.fx.padding;
-          left -= this.fx.padding;
+        if (this.fx.options.padding > 0) {
+          width += this.fx.options.padding * 2;
+          height += this.fx.options.padding * 2;
+          top -= this.fx.options.padding;
+          left -= this.fx.options.padding;
         }
         /**
         *
@@ -1172,8 +1273,26 @@
 
 
       componentDidMount() {
-        this.fx.listeners(ReactDOM.findDOMNode(this.componentref.current));
-        this.ro.observe(ReactDOM.findDOMNode(this.componentref.current));
+        const componentCurrentDOMEl = ReactDOM.findDOMNode(this.componentref.current);
+        this.fx.listeners(componentCurrentDOMEl);
+        this.ro.observe(componentCurrentDOMEl);
+
+        if (this.fx.options.obsIntersection) {
+          let thresholds = [];
+          let numSteps = 50;
+
+          for (let i = 1.0; i <= numSteps; i++) {
+            let ratio = i / numSteps;
+            thresholds.push(ratio);
+          }
+
+          thresholds.push(0);
+          const options = {
+            threshold: thresholds
+          };
+          this.io = new window.IntersectionObserver(this.intersect, options);
+          this.io.observe(componentCurrentDOMEl);
+        }
       }
       /**
       *
@@ -1184,7 +1303,8 @@
 
 
       render() {
-        return React__default.createElement(React__default.Fragment, null, React__default.createElement(NeonComponent, {
+        // How to do this through a portal?
+        return React__default.createElement("div", null, React__default.createElement(NeonComponent, {
           ref: this.componentref
         }), React__default.createElement("canvas", {
           ref: this.canvasref,

@@ -29,6 +29,8 @@ export default class Snow extends Fx {
 
 
   init() {
+    this.snowflakes = [];
+
     for (var i = 0; i < this.maxActive; i++) {
       var x = Math.floor(Math.random() * this.bb.width);
       var y = Math.floor(Math.random() * this.bb.height);
