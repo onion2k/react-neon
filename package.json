@@ -4,8 +4,7 @@
   "description": "A canvas and WebGL overlay for React components",
   "main": "dist/index.js",
   "scripts": {
-    "build": "babel src --out-dir dist && rollup -c",
-    "umd": "babel --plugins=@babel/plugin-transform-modules-umd,add-module-exports --out-file dist/index.umd.js src",
+    "build": "babel --no-babelrc --presets=@babel/react --plugins=@babel/plugin-proposal-class-properties,import-glob src --out-dir dist && rollup -c rollup.cjs.js && rollup -c rollup.umd.js",
     "start": "webpack-dev-server --mode development",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
