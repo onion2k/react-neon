@@ -1474,7 +1474,7 @@ var withNeon = function withNeon(NeonComponent, effect) {
         *
         **/
 
-        _this.ro = new window.ResizeObserver(_this.resize);
+        _this.ro = typeof window !== 'undefined' && new window.ResizeObserver(_this.resize);
         return _this;
       }
       /**
@@ -1523,8 +1523,8 @@ var withNeon = function withNeon(NeonComponent, effect) {
           *
           **/
 
-          left += window.scrollX;
-          top += window.scrollY;
+          left += typeof window !== 'undefined' && window.scrollX;
+          top += typeof window !== 'undefined' && window.scrollY;
           /**
           *
           * If the effect needs to draw outside of the region defined by the component it'll have a padding
@@ -1620,7 +1620,7 @@ var withNeon = function withNeon(NeonComponent, effect) {
             var options = {
               threshold: thresholds
             };
-            this.io = new window.IntersectionObserver(this.intersect, options);
+            this.io = typeof window !== 'undefined' && new window.IntersectionObserver(this.intersect, options);
             this.io.observe(componentCurrentDOMEl);
           }
         }
