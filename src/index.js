@@ -54,7 +54,7 @@ const withNeon = (NeonComponent, effect) => {
             * every time the component is resized (eg by the window changing, or the content)
             *
             **/
-            this.ro = new window.ResizeObserver(this.resize);
+            this.ro = typeof window !== 'undefined' && new window.ResizeObserver(this.resize);
         }
 
         /**
