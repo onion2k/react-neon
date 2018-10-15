@@ -95,8 +95,8 @@ const withNeon = (NeonComponent, effect) => {
             * scroll position to the left and top to fix.
             *
             **/
-            left += window.scrollX;
-            top  += window.scrollY;
+            left += typeof window !== 'undefined' && window.scrollX;
+            top  += typeof window !== 'undefined' && window.scrollY;
 
             /**
             *
@@ -182,7 +182,7 @@ const withNeon = (NeonComponent, effect) => {
                 const options = {
                     threshold: thresholds
                 }
-                this.io = new window.IntersectionObserver(this.intersect, options);
+                this.io = typeof window !== 'undefined' && new window.IntersectionObserver(this.intersect, options);
                 this.io.observe(componentCurrentDOMEl);
             }
         }
