@@ -184,10 +184,11 @@ function () {
     value: function attach(component, ctx, bb) {
       var _this = this;
 
+      this.component = component;
       this.ctx = ctx;
       this.bb = bb;
       this.childPositions = [];
-      Array.from(component.children).map(function (c) {
+      Array.from(this.component.children).map(function (c) {
         var cbb = c.getBoundingClientRect();
         var cp = {
           _x: cbb.x,

@@ -83,10 +83,11 @@ export default class Fx {
 
 
   attach(component, ctx, bb) {
+    this.component = component;
     this.ctx = ctx;
     this.bb = bb;
     this.childPositions = [];
-    Array.from(component.children).map(c => {
+    Array.from(this.component.children).map(c => {
       const cbb = c.getBoundingClientRect();
       const cp = {
         _x: cbb.x,
