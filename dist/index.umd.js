@@ -279,7 +279,7 @@
 
         if (this.options.obsHistory === true) {
           el.addEventListener('mousemove', function (e) {
-            _this2.history.push([e.x - _this2.bb.left + e.view.scrollY, e.y - _this2.bb.top + e.view.scrollY, Math.random(), Math.random(), 50 + Math.random() * 100]);
+            _this2.history.push([e.x - _this2.bb.left + e.view.scrollX, e.y - _this2.bb.top + e.view.scrollY, Math.random(), Math.random(), 50 + Math.random() * 100]);
           }, {
             passive: true
           });

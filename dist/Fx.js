@@ -171,7 +171,7 @@ export default class Fx {
 
     if (this.options.obsHistory === true) {
       el.addEventListener('mousemove', e => {
-        this.history.push([e.x - this.bb.left + e.view.scrollY, e.y - this.bb.top + e.view.scrollY, Math.random(), Math.random(), 50 + Math.random() * 100]);
+        this.history.push([e.x - this.bb.left + e.view.scrollX, e.y - this.bb.top + e.view.scrollY, Math.random(), Math.random(), 50 + Math.random() * 100]);
       }, {
         passive: true
       });
