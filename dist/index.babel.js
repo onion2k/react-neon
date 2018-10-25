@@ -1557,7 +1557,8 @@ var withNeon = function withNeon(NeonComponent, effect) {
             top: top + 'px',
             left: left + 'px',
             zIndex: 999,
-            pointerEvents: 'none'
+            pointerEvents: 'none',
+            mixBlendMode: this.props.mixmode ? this.props.mixmode : "normal"
           });
           /**
           *

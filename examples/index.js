@@ -17,7 +17,7 @@ import "./index.css";
 
 const App = () => (
     <React.Fragment>
-        <Particles />
+        <Particles mixmode="multiply" />
         <Light />
         <Snow />
         <Torch />
