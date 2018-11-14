@@ -4,7 +4,7 @@ React Neon is a library to put a canvas on top of a component in order to draw a
 
 # Docs
 
-Documentation for React Neon is available at https://github.com/onion2k/react-neon/wiki
+Documentation for React Neon is available at https://react-neon.ooer.com/
 
 # Quick start
 
@@ -20,11 +20,11 @@ You can build react-neon and its effects using `npm run build` if you'd rather n
 
 # TODO
 
-* Element mapper
+* Element mapper (done)
 * Canvas overlay (done)
 * Resize observer (done)
-* Scrolling updater / intersection observer
-* Inject TWGL for WebGL shader effects (or minimal alternative)
+* Scrolling updater / intersection observer (done)
+* Inject TWGL for WebGL shader effects (or minimal alternative) (done)
 * Perf timer
 * React/Vue/framework version
 * Register of active effects
