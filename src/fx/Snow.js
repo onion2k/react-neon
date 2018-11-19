@@ -14,8 +14,8 @@ export default class Snow extends Fx {
     * TODO: Use options.
     *
     **/
-    constructor() {
-        super();
+    constructor(options) {
+        super(options);
         this.wind = 2;
         this.maxActive = 200;
         this.snowflakes = [];

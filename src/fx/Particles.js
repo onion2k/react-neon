@@ -7,9 +7,9 @@ import Fx from "../Fx";
 **/
 export default class Particles extends Fx {
 
-    constructor() {
+    constructor(options) {
 
-        super();
+        super(options);
 
         /**
         *
