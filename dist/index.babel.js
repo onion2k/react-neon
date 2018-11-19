@@ -4,10 +4,10 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-var twgl = require('twgl.js');
 var React = require('react');
 var React__default = _interopDefault(React);
 var ReactDOM = _interopDefault(require('react-dom'));
+var twgl = require('twgl.js');
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
@@ -465,8 +465,8 @@ function (_Fx) {
     key: "init",
     value: function init() {
       this.hair = [];
-      var w = this.bb.width - this.padding * 2;
-      var h = this.bb.height - this.padding * 2;
+      var w = this.bb.width - this.options.padding * 2;
+      var h = this.bb.height - this.options.padding * 2;
 
       for (var i = 0; i < this.maxActive / 2; i++) {
         var y = this.options.padding + Math.floor(Math.random() * (this.bb.height - this.options.padding * 2));
@@ -895,12 +895,12 @@ var Particles =
 function (_Fx) {
   _inherits(Particles, _Fx);
 
-  function Particles() {
+  function Particles(options) {
     var _this;
 
     _classCallCheck(this, Particles);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Particles).call(this));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Particles).call(this, options));
     /**
     *
     * particles is an array that holds the current particles that are on the canvas
@@ -1111,12 +1111,12 @@ function (_Fx) {
   * TODO: Use options.
   *
   **/
-  function Snow() {
+  function Snow(options) {
     var _this;
 
     _classCallCheck(this, Snow);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Snow).call(this));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Snow).call(this, options));
     _this.wind = 2;
     _this.maxActive = 200;
     _this.snowflakes = [];
@@ -1539,6 +1539,21 @@ var withNeon = function withNeon(NeonComponent, effect) {
             height += this.fx.options.padding * 2;
             top -= this.fx.options.padding;
             left -= this.fx.options.padding;
+          }
+          /**
+          *
+          * Effects can be fullscreen by setting fullscreen to true. This also sets the effect to be 
+          * position: fixed
+          *
+          **/
+
+
+          if (this.fx.options.fullscreen) {
+            var bbFs = document.querySelector('body').getBoundingClientRect();
+            width = bbFs.width;
+            height = bbFs.height;
+            top = 0;
+            left = 0;
           }
           /**
           *

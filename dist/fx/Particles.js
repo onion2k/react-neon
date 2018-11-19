@@ -6,8 +6,8 @@ import Fx from "../Fx";
 **/
 
 export default class Particles extends Fx {
-  constructor() {
-    super();
+  constructor(options) {
+    super(options);
     /**
     *
     * particles is an array that holds the current particles that are on the canvas

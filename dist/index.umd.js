@@ -1,8 +1,8 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('twgl.js'), require('react'), require('react-dom')) :
-  typeof define === 'function' && define.amd ? define(['exports', 'twgl.js', 'react', 'react-dom'], factory) :
-  (factory((global.neon = {}),global.twgl,global.React,global.ReactDOM));
-}(this, (function (exports,twgl,React,ReactDOM) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react'), require('react-dom'), require('twgl.js')) :
+  typeof define === 'function' && define.amd ? define(['exports', 'react', 'react-dom', 'twgl.js'], factory) :
+  (factory((global.neon = {}),global.React,global.ReactDOM,global.twgl));
+}(this, (function (exports,React,ReactDOM,twgl) { 'use strict';
 
   var React__default = 'default' in React ? React['default'] : React;
   ReactDOM = ReactDOM && ReactDOM.hasOwnProperty('default') ? ReactDOM['default'] : ReactDOM;
@@ -463,8 +463,8 @@
       key: "init",
       value: function init() {
         this.hair = [];
-        var w = this.bb.width - this.padding * 2;
-        var h = this.bb.height - this.padding * 2;
+        var w = this.bb.width - this.options.padding * 2;
+        var h = this.bb.height - this.options.padding * 2;
 
         for (var i = 0; i < this.maxActive / 2; i++) {
           var y = this.options.padding + Math.floor(Math.random() * (this.bb.height - this.options.padding * 2));
@@ -893,12 +893,12 @@
   function (_Fx) {
     _inherits(Particles, _Fx);
 
-    function Particles() {
+    function Particles(options) {
       var _this;
 
       _classCallCheck(this, Particles);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(Particles).call(this));
+      _this = _possibleConstructorReturn(this, _getPrototypeOf(Particles).call(this, options));
       /**
       *
       * particles is an array that holds the current particles that are on the canvas
@@ -1109,12 +1109,12 @@
     * TODO: Use options.
     *
     **/
-    function Snow() {
+    function Snow(options) {
       var _this;
 
       _classCallCheck(this, Snow);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(Snow).call(this));
+      _this = _possibleConstructorReturn(this, _getPrototypeOf(Snow).call(this, options));
       _this.wind = 2;
       _this.maxActive = 200;
       _this.snowflakes = [];
@@ -1537,6 +1537,21 @@
               height += this.fx.options.padding * 2;
               top -= this.fx.options.padding;
               left -= this.fx.options.padding;
+            }
+            /**
+            *
+            * Effects can be fullscreen by setting fullscreen to true. This also sets the effect to be 
+            * position: fixed
+            *
+            **/
+
+
+            if (this.fx.options.fullscreen) {
+              var bbFs = document.querySelector('body').getBoundingClientRect();
+              width = bbFs.width;
+              height = bbFs.height;
+              top = 0;
+              left = 0;
             }
             /**
             *

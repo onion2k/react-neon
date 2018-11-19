@@ -25,8 +25,8 @@ export default class Fuzz extends Fx {
 
   init() {
     this.hair = [];
-    const w = this.bb.width - this.padding * 2;
-    const h = this.bb.height - this.padding * 2;
+    const w = this.bb.width - this.options.padding * 2;
+    const h = this.bb.height - this.options.padding * 2;
 
     for (var i = 0; i < this.maxActive / 2; i++) {
       let y = this.options.padding + Math.floor(Math.random() * (this.bb.height - this.options.padding * 2));

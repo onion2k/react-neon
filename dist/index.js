@@ -145,6 +145,21 @@ const withNeon = (NeonComponent, effect) => {
       }
       /**
       *
+      * Effects can be fullscreen by setting fullscreen to true. This also sets the effect to be 
+      * position: fixed
+      *
+      **/
+
+
+      if (this.fx.options.fullscreen) {
+        const bbFs = document.querySelector('body').getBoundingClientRect();
+        width = bbFs.width;
+        height = bbFs.height;
+        top = 0;
+        left = 0;
+      }
+      /**
+      *
       * Update the CSS styles of the canvas using the new size and position data.
       * NOTE: This is what makes the canvas visible (display: 'block').
       * NOTE: The pointerEvents: 'none' setting stops the canvas getting any mouse events.
