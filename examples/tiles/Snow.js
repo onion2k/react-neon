@@ -10,7 +10,7 @@ class SnowTile extends React.Component {
   }
 };
 
-const snowConfig = { fullscreen: true, type: "snow" };
+const snowConfig = { type: "snow" };
 const effect = new fx.Snow(snowConfig);
 
 export default withNeon(SnowTile, effect);

@@ -37,6 +37,7 @@
     "babel-loader": "^8.0.2",
     "babel-plugin-import-glob": "^2.0.0",
     "css-loader": "^1.0.0",
+    "file-loader": "^2.0.0",
     "html-webpack-plugin": "^3.2.0",
     "react": "^16.5.0",
     "react-dom": "^16.5.0",
