@@ -1040,6 +1040,17 @@
       key: "init",
       value: function init() {
         this.programInfo = twgl.createProgramInfo(this.ctx, [this.options.vs, this.options.fs]);
+
+        if (this.options.tex) {
+          this.channel0 = twgl.createTexture(this.ctx, {
+            src: this.options.tex,
+            crossOrigin: "",
+            mag: this.ctx.LINEAR,
+            wrap: this.ctx.REPEAT,
+            flipY: false
+          });
+        }
+
         var arrays = {
           position: [-1, -1, 0, 1, -1, 0, -1, 1, 0, -1, 1, 0, 1, -1, 0, 1, 1, 0]
         };
@@ -1053,7 +1064,8 @@
           this.ctx.viewport(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
           var uniforms = {
             u_time: time * 0.001,
-            u_resolution: [this.ctx.canvas.width, this.ctx.canvas.height]
+            u_resolution: [this.ctx.canvas.width, this.ctx.canvas.height],
+            u_channel0: this.channel0
           };
           this.ctx.useProgram(this.programInfo.program);
           twgl.setBuffersAndAttributes(this.ctx, this.programInfo, this.bufferInfo);
